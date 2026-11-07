@@ -52,6 +52,8 @@
     <string name="menu_font_up">Aumentar fuente</string>
     <string name="menu_font_down">Reducir fuente</string>
     <string name="host_key_title">Host desconocido</string>
+    <string name="host_key_accept">Aceptar</string>
+    <string name="host_key_reject">Rechazar</string>
 
     <string name="settings_title">Ajustes</string>
     <string name="theme_title">Tema</string>

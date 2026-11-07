@@ -52,6 +52,8 @@
     <string name="menu_font_up">Increase font</string>
     <string name="menu_font_down">Decrease font</string>
     <string name="host_key_title">Unknown host</string>
+    <string name="host_key_accept">Accept</string>
+    <string name="host_key_reject">Reject</string>
 
     <string name="settings_title">Settings</string>
     <string name="theme_title">Theme</string>

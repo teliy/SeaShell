@@ -52,6 +52,8 @@
     <string name="menu_font_up">放大字体</string>
     <string name="menu_font_down">缩小字体</string>
     <string name="host_key_title">未知主机</string>
+    <string name="host_key_accept">接受</string>
+    <string name="host_key_reject">拒绝</string>
 
     <string name="settings_title">设置</string>
     <string name="theme_title">主题</string>

@@ -21,7 +21,7 @@ object SessionStore {
     fun all(context: Context): MutableList<SshSession> {
         val json = prefs(context).getString(KEY, null) ?: return mutableListOf()
         return try {
-            gson.fromJson<SshSession>(json, type) ?: mutableListOf()
+            gson.fromJson<MutableList<SshSession>>(json, type) ?: mutableListOf()
         } catch (e: Exception) {
             mutableListOf()
         }

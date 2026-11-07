@@ -10,16 +10,16 @@ import com.jcraft.jsch.UserInfo
  * PuTTY-like storage of accepted SSH host keys.
  * Keys are kept in a private preferences file, one entry per host.
  */
-class KnownHostsRepository(context: Context) : HostKeyRepository() {
+class KnownHostsRepository(context: Context) : HostKeyRepository {
 
     private val prefs =
         context.applicationContext.getSharedPreferences("known_hosts", Context.MODE_PRIVATE)
 
     override fun check(host: String?, key: ByteArray?): Int {
-        if (host.isNullOrEmpty() || key == null) return NOT_INCLUDED
-        val saved = prefs.getString(host, null) ?: return NOT_INCLUDED
+        if (host.isNullOrEmpty() || key == null) return HostKeyRepository.NOT_INCLUDED
+        val saved = prefs.getString(host, null) ?: return HostKeyRepository.NOT_INCLUDED
         val given = Base64.encodeToString(key, Base64.NO_WRAP)
-        return if (saved == given) INCLUDED else CHANGED
+        return if (saved == given) HostKeyRepository.OK else HostKeyRepository.CHANGED
     }
 
     override fun add(hostkey: HostKey?, ui: UserInfo?) {
@@ -35,16 +35,17 @@ class KnownHostsRepository(context: Context) : HostKeyRepository() {
         if (host != null) prefs.edit().remove(host).apply()
     }
 
-    override fun remove(host: String?, type: String?, strict: Boolean) {
+    override fun remove(host: String?, type: String?, key: ByteArray?) {
         remove(host, type)
     }
 
-    override fun removeAll() {
-        prefs.edit().clear().apply()
-    }
+    override fun getKnownHostsRepositoryID(): String = "SeaShell known hosts"
 
-    override fun getHostKey(): Array<String> =
-        prefs.all.keys.toTypedArray()
+    /**
+     * Full listing is not needed by the app; JSch uses check()/add() during
+     * the connection flow.
+     */
+    override fun getHostKey(): Array<HostKey> = arrayOf()
 
-    override fun getID(): String = "SeaShell known hosts"
+    override fun getHostKey(host: String?, type: String?): Array<HostKey> = arrayOf()
 }

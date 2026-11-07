@@ -52,6 +52,8 @@
     <string name="menu_font_up">Augmenter la police</string>
     <string name="menu_font_down">Réduire la police</string>
     <string name="host_key_title">Hôte inconnu</string>
+    <string name="host_key_accept">Accepter</string>
+    <string name="host_key_reject">Rejeter</string>
 
     <string name="settings_title">Paramètres</string>
     <string name="theme_title">Thème</string>

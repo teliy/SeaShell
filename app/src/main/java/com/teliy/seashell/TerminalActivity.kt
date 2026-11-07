@@ -53,8 +53,12 @@ class TerminalActivity : ThemedActivity() {
         setContentView(binding.root)
 
         val id = intent.getStringExtra(EXTRA_SESSION_ID)
-        session = if (id != null) SessionStore.get(this, id) else null
-            ?: run { finish(); return }
+        val loaded = id?.let { SessionStore.get(this, it) }
+        if (loaded == null) {
+            finish()
+            return
+        }
+        session = loaded
         fontSize = session.fontSize
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -170,8 +174,11 @@ class TerminalActivity : ThemedActivity() {
                 try {
                     val repo = KnownHostsRepository(appContext)
                     val hk = s.hostKey
-                    if (hk != null && repo.check(hk.host, hk.key) == HostKeyRepository.NOT_INCLUDED) {
-                        repo.add(hk, null)
+                    if (hk != null) {
+                        val rawKey = android.util.Base64.decode(hk.key, android.util.Base64.NO_WRAP)
+                        if (repo.check(hk.host, rawKey) == HostKeyRepository.NOT_INCLUDED) {
+                            repo.add(hk, null)
+                        }
                     }
                 } catch (e: Exception) {
                     // non-fatal

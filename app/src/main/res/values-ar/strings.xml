@@ -52,6 +52,8 @@
     <string name="menu_font_up">تكبير الخط</string>
     <string name="menu_font_down">تصغير الخط</string>
     <string name="host_key_title">مضيف غير معروف</string>
+    <string name="host_key_accept">قبول</string>
+    <string name="host_key_reject">رفض</string>
 
     <string name="settings_title">الإعدادات</string>
     <string name="theme_title">المظهر</string>

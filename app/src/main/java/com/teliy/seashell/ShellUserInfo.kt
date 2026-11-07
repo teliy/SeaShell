@@ -1,6 +1,7 @@
 package com.teliy.seashell
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.text.InputType
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -25,11 +26,11 @@ class ShellUserInfo(private val activity: Activity) : UserInfo, UIKeyboardIntera
             val dlg: AlertDialog = MaterialAlertDialogBuilder(activity)
                 .setTitle(R.string.host_key_title)
                 .setMessage(message)
-                .setPositiveButton(R.string.host_key_accept) { _, _ ->
+                .setPositiveButton(R.string.host_key_accept) { _: DialogInterface, _: Int ->
                     answer = true
                     latch.countDown()
                 }
-                .setNegativeButton(R.string.host_key_reject) { _, _ -> latch.countDown() }
+                .setNegativeButton(R.string.host_key_reject) { _: DialogInterface, _: Int -> latch.countDown() }
                 .setOnCancelListener { latch.countDown() }
                 .create()
             dlg.show()
