@@ -28,6 +28,7 @@
     <string name="auth_password">Password</string>
     <string name="auth_key">Private key</string>
     <string name="field_password">Password</string>
+    <string name="field_password_hint">Leave empty to be asked on every connection (PuTTY-style)</string>
     <string name="field_passphrase">Key passphrase (optional)</string>
     <string name="field_key_file">Private key file</string>
     <string name="btn_choose_key">Choose file</string>
@@ -54,6 +55,13 @@
     <string name="host_key_title">Unknown host</string>
     <string name="host_key_accept">Accept</string>
     <string name="host_key_reject">Reject</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_passphrase">Key passphrase</string>
+    <string name="auth_cancelled">Authentication cancelled — password was not entered.</string>
+    <string name="auth_failed">Authentication failed. Check your username and password.</string>
+    <string name="error_timeout">Connection timed out. Check the host, port and network.</string>
+    <string name="error_unknown_host">Could not resolve the host name.</string>
+    <string name="error_refused">Connection refused. The server is unreachable or the port is closed.</string>
 
     <string name="settings_title">Settings</string>
     <string name="theme_title">Theme</string>
@@ -70,5 +78,19 @@
     <string name="clear_known_hosts_confirm">Saved SSH host keys will be removed. You will be asked to confirm them again on the next connection.</string>
     <string name="known_hosts_cleared">Host keys cleared</string>
     <string name="about_title">About</string>
-    <string name="about_text">SeaShell — PuTTY-style SSH client for Android.\nVersion %1$s\n\nFree and open-source software under the MIT license.</string>
+    <string name="about_text">SeaShell — PuTTY-style SSH client for Android.\nVersion %1$s\n\nFree and open-source software under the GNU GPL v3 license.</string>
+
+    <!-- In-app updates -->
+    <string name="update_check">Check for updates</string>
+    <string name="update_checking">Checking for updates…</string>
+    <string name="update_available_title">Update available</string>
+    <string name="update_available_msg">Version %1$s is available. Installed: %2$s.\n\nDownload and install now?</string>
+    <string name="update_download">Download and install</string>
+    <string name="update_later">Later</string>
+    <string name="update_downloading_title">Downloading update</string>
+    <string name="update_downloading">Downloading update… %1$d%%</string>
+    <string name="update_latest">You already have the latest version</string>
+    <string name="update_check_failed">Could not check for updates. Check your network.</string>
+    <string name="update_download_failed">Download failed. Try again later.</string>
+    <string name="update_install_permission">Allow installing apps from this source in system settings, then the update will continue.</string>
 </resources>

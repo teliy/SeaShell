@@ -6,4 +6,79 @@
         <item name="android:windowLightStatusBar">false</item>
     </style>
 
+    <!-- Dark palettes for every theme so buttons, chips and dialogs stay
+         readable when the system night mode is enabled. -->
+
+    <style name="Theme.SeaShell.Ocean">
+        <item name="colorPrimary">@color/ocean_night_primary</item>
+        <item name="colorOnPrimary">@color/ocean_night_on_primary</item>
+        <item name="colorPrimaryContainer">@color/ocean_night_container</item>
+        <item name="colorOnPrimaryContainer">@color/ocean_night_on_container</item>
+        <item name="colorSecondary">@color/ocean_night_secondary</item>
+        <item name="colorSecondaryContainer">@color/ocean_night_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/ocean_night_on_secondary_container</item>
+        <item name="colorTertiary">@color/ocean_night_tertiary</item>
+        <item name="termBackground">#0E1621</item>
+    </style>
+
+    <style name="Theme.SeaShell.Graphite">
+        <item name="colorPrimary">@color/graphite_night_primary</item>
+        <item name="colorOnPrimary">@color/graphite_night_on_primary</item>
+        <item name="colorPrimaryContainer">@color/graphite_night_container</item>
+        <item name="colorOnPrimaryContainer">@color/graphite_night_on_container</item>
+        <item name="colorSecondary">@color/graphite_night_secondary</item>
+        <item name="colorSecondaryContainer">@color/graphite_night_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/graphite_night_on_secondary_container</item>
+        <item name="colorTertiary">@color/graphite_night_tertiary</item>
+        <item name="termBackground">#101418</item>
+    </style>
+
+    <style name="Theme.SeaShell.Sunset">
+        <item name="colorPrimary">@color/sunset_night_primary</item>
+        <item name="colorOnPrimary">@color/sunset_night_on_primary</item>
+        <item name="colorPrimaryContainer">@color/sunset_night_container</item>
+        <item name="colorOnPrimaryContainer">@color/sunset_night_on_container</item>
+        <item name="colorSecondary">@color/sunset_night_secondary</item>
+        <item name="colorSecondaryContainer">@color/sunset_night_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/sunset_night_on_secondary_container</item>
+        <item name="colorTertiary">@color/sunset_night_tertiary</item>
+        <item name="termBackground">#1A1210</item>
+    </style>
+
+    <style name="Theme.SeaShell.Forest">
+        <item name="colorPrimary">@color/forest_night_primary</item>
+        <item name="colorOnPrimary">@color/forest_night_on_primary</item>
+        <item name="colorPrimaryContainer">@color/forest_night_container</item>
+        <item name="colorOnPrimaryContainer">@color/forest_night_on_container</item>
+        <item name="colorSecondary">@color/forest_night_secondary</item>
+        <item name="colorSecondaryContainer">@color/forest_night_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/forest_night_on_secondary_container</item>
+        <item name="colorTertiary">@color/forest_night_tertiary</item>
+        <item name="termBackground">#0F1712</item>
+    </style>
+
+    <style name="Theme.SeaShell.Amethyst">
+        <item name="colorPrimary">@color/amethyst_night_primary</item>
+        <item name="colorOnPrimary">@color/amethyst_night_on_primary</item>
+        <item name="colorPrimaryContainer">@color/amethyst_night_container</item>
+        <item name="colorOnPrimaryContainer">@color/amethyst_night_on_container</item>
+        <item name="colorSecondary">@color/amethyst_night_secondary</item>
+        <item name="colorSecondaryContainer">@color/amethyst_night_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/amethyst_night_on_secondary_container</item>
+        <item name="colorTertiary">@color/amethyst_night_tertiary</item>
+        <item name="termBackground">#14101F</item>
+    </style>
+
+    <style name="Theme.SeaShell.Rose">
+        <item name="colorPrimary">@color/rose_night_primary</item>
+        <item name="colorOnPrimary">@color/rose_night_on_primary</item>
+        <item name="colorPrimaryContainer">@color/rose_night_container</item>
+        <item name="colorOnPrimaryContainer">@color/rose_night_on_container</item>
+        <item name="colorSecondary">@color/rose_night_secondary</item>
+        <item name="colorSecondaryContainer">@color/rose_night_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/rose_night_on_secondary_container</item>
+        <item name="colorTertiary">@color/rose_night_tertiary</item>
+        <item name="termBackground">#190F14</item>
+    </style>
+
 </resources>

@@ -17,6 +17,8 @@ Kotlin · minSdk 24 (Android 7.0) · JSch + xterm.js
 - 🖥 **Интерактивный терминал** — полноценная эмуляция xterm-256color (цвета, курсор, скроллбек 5000 строк) на базе xterm.js
 - 💾 **Список серверов** — сохранение подключений (хост, порт, пользователь, способ входа), редактирование, дублирование, удаление
 - 🔑 **Аутентификация** — по паролю или приватным ключом (OpenSSH / PEM), с passphrase; поддержка keyboard-interactive (PAM)
+- 💬 **Диалоги как в PuTTY** — если пароль не сохранён, он запрашивается при подключении; понятные сообщения об ошибках (таймаут, неверный пароль, отклонённое соединение)
+- 🔄 **Обновление внутри приложения** — SeaShell проверяет новые релизы на GitHub (автоматически раз в 8 часов и вручную в «Настройках»), скачивает APK и запускает установку
 - 🛡 **Проверка ключей хостов** — как в PuTTY: диалог подтверждения при первом подключении и запоминание ключа (known hosts)
 - 🎨 **6 тем оформления** — Океан, Графит, Закат, Лес, Аметист, Роза (светлые и тёмные варианты)
 - 🌍 **6 языков** — русский, English, français, 中文, العربية (RTL), español; переключение внутри приложения
@@ -25,8 +27,10 @@ Kotlin · minSdk 24 (Android 7.0) · JSch + xterm.js
 
 ## Установка
 
-Скачайте готовый `SeaShell-1.0.0.apk` из раздела [Releases](https://github.com/teliy/SeaShell/releases) и установите его
+Скачайте готовый `SeaShell-1.1.0.apk` из раздела [Releases](https://github.com/teliy/SeaShell/releases) и установите его
 (при необходимости разрешите установку из неизвестных источников).
+
+Дальнейшие обновления можно ставить прямо из приложения: **Настройки → Проверить обновления**.
 
 ## Сборка из исходников
 
@@ -62,7 +66,8 @@ app/src/main/java/com/teliy/seashell/
 ├── TerminalActivity.kt        # SSH-терминал (JSch + xterm.js)
 ├── SettingsActivity.kt        # темы, язык, known hosts
 ├── KnownHostsRepository.kt    # хранилище ключей хостов
-├── ShellUserInfo.kt           # диалоги (host key, keyboard-interactive)
+├── ShellUserInfo.kt           # диалоги (пароль, passphrase, host key, keyboard-interactive)
+├── UpdateManager.kt           # обновление внутри приложения (GitHub Releases)
 ├── SessionStore.kt            # сохранение подключений
 ├── ThemeManager.kt            # 6 тем оформления
 └── ...
@@ -70,7 +75,14 @@ app/src/main/java/com/teliy/seashell/
 
 ## Лицензия
 
-[MIT](LICENSE) © 2026 teliy
+Проект распространяется под лицензией [GNU GPL v3](LICENSE) © 2026 teliy.
+
+Это значит:
+
+- вы можете свободно использовать, изучать и изменять код;
+- производные приложения обязаны оставаться открытыми под той же лицензией;
+- автор сохраняет за собой право выпускать коммерческие версии по отдельной лицензии
+  (dual licensing) — обращайтесь через Issues.
 
 ---
 
@@ -81,5 +93,6 @@ app/src/main/java/com/teliy/seashell/
 SeaShell is an open-source PuTTY-style SSH client for Android 7.0+: saved server list,
 interactive xterm-256color terminal (xterm.js + JSch), password/key auth, host key verification,
 6 color themes and 6 languages (ru/en/fr/zh/ar/es with RTL), font size control and clipboard paste.
+Licensed under the GNU GPL v3.
 
 </div>

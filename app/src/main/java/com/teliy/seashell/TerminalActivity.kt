@@ -158,9 +158,10 @@ class TerminalActivity : ThemedActivity() {
                 s.setConfig("PreferredAuthentications", "publickey,password,keyboard-interactive")
                 s.setConfig("StrictHostKeyChecking", "ask")
                 s.setHostKeyRepository(KnownHostsRepository(appContext))
-                if (session.authType == SshSession.AUTH_PASSWORD) {
+                if (session.authType == SshSession.AUTH_PASSWORD && session.password.isNotEmpty()) {
                     s.setPassword(session.password)
                 }
+                // Empty stored password => JSch asks via UserInfo (PuTTY-like prompt).
                 s.setServerAliveInterval(30000)
                 s.connect(CONNECT_TIMEOUT)
 
@@ -225,13 +226,36 @@ class TerminalActivity : ThemedActivity() {
                 if (running.getAndSet(false)) {
                     // was connected and stream died - ignore, already handled
                 } else {
-                    val msg = e.message ?: e.javaClass.simpleName
+                    val msg = friendlyError(e)
                     runOnUiThread { showError(msg, closed = false) }
                 }
             } finally {
                 try { channel?.disconnect() } catch (e: Exception) {}
                 try { sshSession?.disconnect() } catch (e: Exception) {}
             }
+        }
+    }
+
+    /** Translates low-level JSch messages into user-friendly strings. */
+    private fun friendlyError(e: Exception): String {
+        val raw = e.message ?: e.javaClass.simpleName
+        return when {
+            raw.contains("Auth cancel", ignoreCase = true) ->
+                getString(R.string.auth_cancelled)
+            raw.contains("Auth fail", ignoreCase = true) ||
+                raw.contains("USERAUTH fail", ignoreCase = true) ->
+                getString(R.string.auth_failed)
+            raw.contains("timeout", ignoreCase = true) ||
+                raw.contains("timed out", ignoreCase = true) ->
+                getString(R.string.error_timeout)
+            raw.contains("UnknownHost", ignoreCase = true) ||
+                e is java.net.UnknownHostException ->
+                getString(R.string.error_unknown_host)
+            raw.contains("Connection refused", ignoreCase = true) ||
+                raw.contains("Network is unreachable", ignoreCase = true) ||
+                raw.contains("ECONNREFUSED", ignoreCase = true) ->
+                getString(R.string.error_refused)
+            else -> raw
         }
     }
 

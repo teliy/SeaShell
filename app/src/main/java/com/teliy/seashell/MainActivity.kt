@@ -35,6 +35,8 @@ class MainActivity : ThemedActivity() {
     override fun onResume() {
         super.onResume()
         refresh()
+        UpdateManager.onResume(this)
+        UpdateManager.autoCheck(this)
     }
 
     private fun refresh() {

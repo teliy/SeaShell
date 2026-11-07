@@ -28,6 +28,7 @@
     <string name="auth_password">Mot de passe</string>
     <string name="auth_key">Clé privée</string>
     <string name="field_password">Mot de passe</string>
+    <string name="field_password_hint">Laissez vide pour demander le mot de passe à chaque connexion (comme PuTTY)</string>
     <string name="field_passphrase">Phrase secrète de la clé (facultatif)</string>
     <string name="field_key_file">Fichier de clé</string>
     <string name="btn_choose_key">Choisir un fichier</string>
@@ -70,5 +71,29 @@
     <string name="clear_known_hosts_confirm">Les clés d\'hôte SSH enregistrées seront supprimées. Vous devrez les confirmer à nouveau lors de la prochaine connexion.</string>
     <string name="known_hosts_cleared">Clés d\'hôte supprimées</string>
     <string name="about_title">À propos</string>
-    <string name="about_text">SeaShell — client SSH pour Android, dans l\'esprit de PuTTY.\nVersion %1$s\n\nLogiciel libre sous licence MIT.</string>
+    <string name="about_text">SeaShell — client SSH pour Android, dans l\'esprit de PuTTY.
+Version %1$s
+
+Logiciel libre sous licence GNU GPL v3.</string>
+    <string name="prompt_password">Mot de passe</string>
+    <string name="prompt_passphrase">Phrase secrète de la clé</string>
+    <string name="auth_cancelled">Authentification annulée — mot de passe non saisi.</string>
+    <string name="auth_failed">Échec de l\'authentification. Vérifiez le nom d\'utilisateur et le mot de passe.</string>
+    <string name="error_timeout">Délai de connexion dépassé. Vérifiez l\'hôte, le port et le réseau.</string>
+    <string name="error_unknown_host">Impossible de résoudre le nom d\'hôte.</string>
+    <string name="error_refused">Connexion refusée. Le serveur est injoignable ou le port est fermé.</string>
+    <string name="update_check">Rechercher des mises à jour</string>
+    <string name="update_checking">Recherche de mises à jour…</string>
+    <string name="update_available_title">Mise à jour disponible</string>
+    <string name="update_available_msg">La version %1$s est disponible. Installée : %2$s.
+
+Télécharger et installer maintenant ?</string>
+    <string name="update_download">Télécharger et installer</string>
+    <string name="update_later">Plus tard</string>
+    <string name="update_downloading_title">Téléchargement de la mise à jour</string>
+    <string name="update_downloading">Téléchargement… %1$d%%</string>
+    <string name="update_latest">Vous avez déjà la dernière version</string>
+    <string name="update_check_failed">Impossible de rechercher les mises à jour. Vérifiez le réseau.</string>
+    <string name="update_download_failed">Échec du téléchargement. Réessayez plus tard.</string>
+    <string name="update_install_permission">Autorisez l\'installation d\'applications depuis cette source dans les paramètres système, puis la mise à jour continuera.</string>
 </resources>

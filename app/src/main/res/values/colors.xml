@@ -69,4 +69,66 @@
     <color name="rose_secondary_container">#FFD9DE</color>
     <color name="rose_on_secondary_container">#2B151A</color>
     <color name="rose_tertiary">#77536D</color>
+
+    <!-- ===== Dark (night) palettes, Material 3 tone rules (80/20/30/90) ===== -->
+
+    <!-- Ocean night -->
+    <color name="ocean_night_primary">#9CCFFF</color>
+    <color name="ocean_night_on_primary">#003159</color>
+    <color name="ocean_night_container">#00497E</color>
+    <color name="ocean_night_on_container">#D3E8FF</color>
+    <color name="ocean_night_secondary">#B9C8DA</color>
+    <color name="ocean_night_secondary_container">#3B4857</color>
+    <color name="ocean_night_on_secondary_container">#D5E4F7</color>
+    <color name="ocean_night_tertiary">#7CD5C6</color>
+
+    <!-- Graphite night -->
+    <color name="graphite_night_primary">#BEC6DD</color>
+    <color name="graphite_night_on_primary">#28303F</color>
+    <color name="graphite_night_container">#3E4757</color>
+    <color name="graphite_night_on_container">#DAE2F9</color>
+    <color name="graphite_night_secondary">#C2C6CF</color>
+    <color name="graphite_night_secondary_container">#54585F</color>
+    <color name="graphite_night_on_secondary_container">#E2E5EE</color>
+    <color name="graphite_night_tertiary">#D6BEE4</color>
+
+    <!-- Sunset night -->
+    <color name="sunset_night_primary">#FFB59D</color>
+    <color name="sunset_night_on_primary">#5B1A05</color>
+    <color name="sunset_night_container">#7A2C13</color>
+    <color name="sunset_night_on_container">#FFDBCB</color>
+    <color name="sunset_night_secondary">#E7BDB0</color>
+    <color name="sunset_night_secondary_container">#5D4035</color>
+    <color name="sunset_night_on_secondary_container">#FFDBCC</color>
+    <color name="sunset_night_tertiary">#E7C36D</color>
+
+    <!-- Forest night -->
+    <color name="forest_night_primary">#9CD67C</color>
+    <color name="forest_night_on_primary">#0A390F</color>
+    <color name="forest_night_container">#1E4B22</color>
+    <color name="forest_night_on_container">#B8F1B6</color>
+    <color name="forest_night_secondary">#B6CCB3</color>
+    <color name="forest_night_secondary_container">#3C4B3B</color>
+    <color name="forest_night_on_secondary_container">#D2E8D1</color>
+    <color name="forest_night_tertiary">#A0CFD5</color>
+
+    <!-- Amethyst night -->
+    <color name="amethyst_night_primary">#C9BFFF</color>
+    <color name="amethyst_night_on_primary">#2B1A75</color>
+    <color name="amethyst_night_container">#413489</color>
+    <color name="amethyst_night_on_container">#E7DEFF</color>
+    <color name="amethyst_night_secondary">#CCC2DC</color>
+    <color name="amethyst_night_secondary_container">#4A4458</color>
+    <color name="amethyst_night_on_secondary_container">#E8DEF8</color>
+    <color name="amethyst_night_tertiary">#F0B8C8</color>
+
+    <!-- Rose night -->
+    <color name="rose_night_primary">#FFB1C1</color>
+    <color name="rose_night_on_primary">#680034</color>
+    <color name="rose_night_container">#872644</color>
+    <color name="rose_night_on_container">#FFD9DE</color>
+    <color name="rose_night_secondary">#E3BDC5</color>
+    <color name="rose_night_secondary_container">#5B3F46</color>
+    <color name="rose_night_on_secondary_container">#FFD9DE</color>
+    <color name="rose_night_tertiary">#E8BBDF</color>
 </resources>

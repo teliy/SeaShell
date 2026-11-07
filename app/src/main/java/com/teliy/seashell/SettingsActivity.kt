@@ -26,7 +26,16 @@ class SettingsActivity : ThemedActivity() {
         buildThemeChips()
         buildLanguageChips()
         binding.btnClearKnownHosts.setOnClickListener { confirmClearKnownHosts() }
+        binding.btnCheckUpdates.setOnClickListener {
+            Toast.makeText(this, R.string.update_checking, Toast.LENGTH_SHORT).show()
+            UpdateManager.check(this, manual = true)
+        }
         bindAbout()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        UpdateManager.onResume(this)
     }
 
     override fun onSupportNavigateUp(): Boolean {

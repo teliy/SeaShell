@@ -28,6 +28,7 @@
     <string name="auth_password">Пароль</string>
     <string name="auth_key">Ключ</string>
     <string name="field_password">Пароль</string>
+    <string name="field_password_hint">Оставьте пустым — пароль спросит при каждом подключении (как в PuTTY)</string>
     <string name="field_passphrase">Парольная фраза ключа (необязательно)</string>
     <string name="field_key_file">Файл ключа</string>
     <string name="btn_choose_key">Выбрать файл</string>
@@ -70,5 +71,29 @@
     <string name="clear_known_hosts_confirm">Сохранённые SSH-ключи хостов будут удалены. При следующем подключении их нужно будет подтвердить снова.</string>
     <string name="known_hosts_cleared">Ключи хостов удалены</string>
     <string name="about_title">О программе</string>
-    <string name="about_text">SeaShell — SSH-клиент для Android в стиле PuTTY.\nВерсия %1$s\n\nСвободное ПО под лицензией MIT.</string>
+    <string name="about_text">SeaShell — SSH-клиент для Android в стиле PuTTY.
+Версия %1$s
+
+Свободное ПО под лицензией GNU GPL v3.</string>
+    <string name="prompt_password">Пароль</string>
+    <string name="prompt_passphrase">Парольная фраза ключа</string>
+    <string name="auth_cancelled">Аутентификация отменена — пароль не введён.</string>
+    <string name="auth_failed">Не удалось пройти аутентификацию. Проверьте имя пользователя и пароль.</string>
+    <string name="error_timeout">Истекло время ожидания подключения. Проверьте хост, порт и сеть.</string>
+    <string name="error_unknown_host">Не удалось определить IP-адрес хоста.</string>
+    <string name="error_refused">Соединение отклонено. Сервер недоступен или порт закрыт.</string>
+    <string name="update_check">Проверить обновления</string>
+    <string name="update_checking">Проверяем обновления…</string>
+    <string name="update_available_title">Доступно обновление</string>
+    <string name="update_available_msg">Доступна версия %1$s. Установлена: %2$s.
+
+Скачать и установить сейчас?</string>
+    <string name="update_download">Скачать и установить</string>
+    <string name="update_later">Позже</string>
+    <string name="update_downloading_title">Скачивание обновления</string>
+    <string name="update_downloading">Скачивание обновления… %1$d%%</string>
+    <string name="update_latest">У вас последняя версия</string>
+    <string name="update_check_failed">Не удалось проверить обновления. Проверьте сеть.</string>
+    <string name="update_download_failed">Не удалось скачать обновление. Попробуйте позже.</string>
+    <string name="update_install_permission">Разрешите установку приложений из этого источника в настройках системы — обновление продолжится.</string>
 </resources>
