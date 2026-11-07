@@ -28,7 +28,7 @@
     <string name="auth_password">Mot de passe</string>
     <string name="auth_key">Clé privée</string>
     <string name="field_password">Mot de passe</string>
-    <string name="field_password_hint">Laissez vide pour demander le mot de passe à chaque connexion (comme PuTTY)</string>
+    <string name="field_password_hint">Laissez vide - le mot de passe sera demandé à chaque connexion</string>
     <string name="field_passphrase">Phrase secrète de la clé (facultatif)</string>
     <string name="field_key_file">Fichier de clé</string>
     <string name="btn_choose_key">Choisir un fichier</string>
@@ -71,7 +71,7 @@
     <string name="clear_known_hosts_confirm">Les clés d\'hôte SSH enregistrées seront supprimées. Vous devrez les confirmer à nouveau lors de la prochaine connexion.</string>
     <string name="known_hosts_cleared">Clés d\'hôte supprimées</string>
     <string name="about_title">À propos</string>
-    <string name="about_text">SeaShell — client SSH pour Android, dans l\'esprit de PuTTY.
+    <string name="about_text">SeaShell - un client SSH simple et pratique pour Android.
 Version %1$s
 
 Logiciel libre sous licence GNU GPL v3.</string>
@@ -96,4 +96,12 @@ Télécharger et installer maintenant ?</string>
     <string name="update_check_failed">Impossible de rechercher les mises à jour. Vérifiez le réseau.</string>
     <string name="update_download_failed">Échec du téléchargement. Réessayez plus tard.</string>
     <string name="update_install_permission">Autorisez l\'installation d\'applications depuis cette source dans les paramètres système, puis la mise à jour continuera.</string>
+    <string name="quick_connect">Connexion rapide</string>
+    <string name="quick_connect_hint">Adresse</string>
+    <string name="quick_connect_helper">utilisateur@hôte:port, hôte:port ou hôte</string>
+    <string name="btn_connect">Se connecter</string>
+    <string name="prompt_login">Connexion à %1$s</string>
+    <string name="error_address_invalid">Saisissez une adresse valide</string>
+    <string name="save_connection_title">Enregistrer la connexion ?</string>
+    <string name="save_connection_msg">Ajouter %1$s à la liste des serveurs enregistrés ?</string>
 </resources>

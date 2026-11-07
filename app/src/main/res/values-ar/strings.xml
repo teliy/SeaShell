@@ -28,7 +28,7 @@
     <string name="auth_password">كلمة المرور</string>
     <string name="auth_key">المفتاح الخاص</string>
     <string name="field_password">كلمة المرور</string>
-    <string name="field_password_hint">اتركه فارغًا ليُطلب في كل اتصال (مثل PuTTY)</string>
+    <string name="field_password_hint">اتركه فارغًا وستُطلب كلمة المرور عند كل اتصال</string>
     <string name="field_passphrase">عبارة مرور المفتاح (اختياري)</string>
     <string name="field_key_file">ملف المفتاح</string>
     <string name="btn_choose_key">اختيار ملف</string>
@@ -71,7 +71,7 @@
     <string name="clear_known_hosts_confirm">سيتم حذف مفاتيح المضيفين المحفوظة، وسيُطلب منك تأكيدها مرة أخرى عند الاتصال التالي.</string>
     <string name="known_hosts_cleared">تم حذف مفاتيح المضيفين</string>
     <string name="about_title">حول</string>
-    <string name="about_text">SeaShell — عميل SSH لنظام Android بأسلوب PuTTY.
+    <string name="about_text">SeaShell — عميل SSH بسيط ومريح لنظام Android.
 الإصدار %1$s
 
 برنامج حر ومفتوح المصدر بموجب ترخيص GNU GPL v3.</string>
@@ -96,4 +96,12 @@
     <string name="update_check_failed">تعذر التحقق من التحديثات. تحقق من الشبكة.</string>
     <string name="update_download_failed">فشل التنزيل. حاول مرة أخرى لاحقًا.</string>
     <string name="update_install_permission">اسمح بتثبيت التطبيقات من هذا المصدر في إعدادات النظام، وسيستمر التحديث.</string>
+    <string name="quick_connect">اتصال سريع</string>
+    <string name="quick_connect_hint">العنوان</string>
+    <string name="quick_connect_helper">user@host:port أو host:port أو host</string>
+    <string name="btn_connect">اتصال</string>
+    <string name="prompt_login">تسجيل الدخول إلى %1$s</string>
+    <string name="error_address_invalid">أدخل عنوانًا صحيحًا</string>
+    <string name="save_connection_title">حفظ الاتصال؟</string>
+    <string name="save_connection_msg">إضافة %1$s إلى قائمة الخوادم المحفوظة؟</string>
 </resources>

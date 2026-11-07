@@ -7,7 +7,7 @@ import com.jcraft.jsch.HostKeyRepository
 import com.jcraft.jsch.UserInfo
 
 /**
- * PuTTY-like storage of accepted SSH host keys.
+ * Storage of accepted SSH host keys (known_hosts).
  * Keys are kept in a private preferences file, one entry per host.
  */
 class KnownHostsRepository(context: Context) : HostKeyRepository {

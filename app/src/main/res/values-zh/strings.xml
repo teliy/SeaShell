@@ -28,7 +28,7 @@
     <string name="auth_password">密码</string>
     <string name="auth_key">私钥</string>
     <string name="field_password">密码</string>
-    <string name="field_password_hint">留空则每次连接时询问密码（类似 PuTTY）</string>
+    <string name="field_password_hint">留空则每次连接时询问密码</string>
     <string name="field_passphrase">密钥口令（可选）</string>
     <string name="field_key_file">私钥文件</string>
     <string name="btn_choose_key">选择文件</string>
@@ -71,7 +71,7 @@
     <string name="clear_known_hosts_confirm">已保存的 SSH 主机密钥将被删除，下次连接时需要重新确认。</string>
     <string name="known_hosts_cleared">主机密钥已清除</string>
     <string name="about_title">关于</string>
-    <string name="about_text">SeaShell —— Android 上的 PuTTY 风格 SSH 客户端。
+    <string name="about_text">SeaShell —— 简单易用的 Android SSH 客户端。
 版本 %1$s
 
 基于 GNU GPL v3 许可证的开源软件。</string>
@@ -96,4 +96,12 @@
     <string name="update_check_failed">无法检查更新，请检查网络。</string>
     <string name="update_download_failed">下载失败，请稍后重试。</string>
     <string name="update_install_permission">请在系统设置中允许来自此来源的应用安装，之后更新将继续。</string>
+    <string name="quick_connect">快速连接</string>
+    <string name="quick_connect_hint">地址</string>
+    <string name="quick_connect_helper">用户名@主机:端口、主机:端口或主机</string>
+    <string name="btn_connect">连接</string>
+    <string name="prompt_login">登录 %1$s</string>
+    <string name="error_address_invalid">请输入有效的地址</string>
+    <string name="save_connection_title">保存连接？</string>
+    <string name="save_connection_msg">将 %1$s 添加到已保存的服务器列表？</string>
 </resources>

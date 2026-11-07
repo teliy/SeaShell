@@ -28,7 +28,7 @@
     <string name="auth_password">Password</string>
     <string name="auth_key">Private key</string>
     <string name="field_password">Password</string>
-    <string name="field_password_hint">Leave empty to be asked on every connection (PuTTY-style)</string>
+    <string name="field_password_hint">Leave empty - the password will be asked on every connection</string>
     <string name="field_passphrase">Key passphrase (optional)</string>
     <string name="field_key_file">Private key file</string>
     <string name="btn_choose_key">Choose file</string>
@@ -78,7 +78,10 @@
     <string name="clear_known_hosts_confirm">Saved SSH host keys will be removed. You will be asked to confirm them again on the next connection.</string>
     <string name="known_hosts_cleared">Host keys cleared</string>
     <string name="about_title">About</string>
-    <string name="about_text">SeaShell — PuTTY-style SSH client for Android.\nVersion %1$s\n\nFree and open-source software under the GNU GPL v3 license.</string>
+    <string name="about_text">SeaShell - a simple and handy SSH client for Android.
+Version %1$s
+
+Free and open-source software under the GNU GPL v3 license.</string>
 
     <!-- In-app updates -->
     <string name="update_check">Check for updates</string>
@@ -93,4 +96,12 @@
     <string name="update_check_failed">Could not check for updates. Check your network.</string>
     <string name="update_download_failed">Download failed. Try again later.</string>
     <string name="update_install_permission">Allow installing apps from this source in system settings, then the update will continue.</string>
+    <string name="quick_connect">Quick connect</string>
+    <string name="quick_connect_hint">Address</string>
+    <string name="quick_connect_helper">user@host:port, host:port or host</string>
+    <string name="btn_connect">Connect</string>
+    <string name="prompt_login">Login to %1$s</string>
+    <string name="error_address_invalid">Enter a valid address</string>
+    <string name="save_connection_title">Save connection?</string>
+    <string name="save_connection_msg">Add %1$s to the saved server list?</string>
 </resources>

@@ -28,7 +28,7 @@
     <string name="auth_password">Пароль</string>
     <string name="auth_key">Ключ</string>
     <string name="field_password">Пароль</string>
-    <string name="field_password_hint">Оставьте пустым — пароль спросит при каждом подключении (как в PuTTY)</string>
+    <string name="field_password_hint">Оставьте пустым — пароль будет запрошен при подключении</string>
     <string name="field_passphrase">Парольная фраза ключа (необязательно)</string>
     <string name="field_key_file">Файл ключа</string>
     <string name="btn_choose_key">Выбрать файл</string>
@@ -71,7 +71,7 @@
     <string name="clear_known_hosts_confirm">Сохранённые SSH-ключи хостов будут удалены. При следующем подключении их нужно будет подтвердить снова.</string>
     <string name="known_hosts_cleared">Ключи хостов удалены</string>
     <string name="about_title">О программе</string>
-    <string name="about_text">SeaShell — SSH-клиент для Android в стиле PuTTY.
+    <string name="about_text">SeaShell — простой и удобный SSH-клиент для Android.
 Версия %1$s
 
 Свободное ПО под лицензией GNU GPL v3.</string>
@@ -96,4 +96,12 @@
     <string name="update_check_failed">Не удалось проверить обновления. Проверьте сеть.</string>
     <string name="update_download_failed">Не удалось скачать обновление. Попробуйте позже.</string>
     <string name="update_install_permission">Разрешите установку приложений из этого источника в настройках системы — обновление продолжится.</string>
+    <string name="quick_connect">Быстрое подключение</string>
+    <string name="quick_connect_hint">Адрес</string>
+    <string name="quick_connect_helper">user@host:port, host:port или host</string>
+    <string name="btn_connect">Подключиться</string>
+    <string name="prompt_login">Вход на %1$s</string>
+    <string name="error_address_invalid">Укажите корректный адрес</string>
+    <string name="save_connection_title">Сохранить подключение?</string>
+    <string name="save_connection_msg">Добавить %1$s в список сохранённых серверов?</string>
 </resources>

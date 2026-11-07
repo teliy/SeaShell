@@ -29,13 +29,14 @@ import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.concurrent.thread
 
 /**
- * Interactive SSH terminal (PuTTY-style) built on JSch and an embedded
+ * Interactive SSH terminal built on JSch and an embedded
  * xterm.js terminal rendered in a WebView.
  */
 class TerminalActivity : ThemedActivity() {
 
     companion object {
         const val EXTRA_SESSION_ID = "session_id"
+        const val EXTRA_SESSION = "session_extra"
         private const val CONNECT_TIMEOUT = 15000
     }
 
@@ -53,7 +54,14 @@ class TerminalActivity : ThemedActivity() {
         setContentView(binding.root)
 
         val id = intent.getStringExtra(EXTRA_SESSION_ID)
-        val loaded = id?.let { SessionStore.get(this, it) }
+        @Suppress("DEPRECATION")
+        val direct =
+            if (android.os.Build.VERSION.SDK_INT >= 33) {
+                intent.getSerializableExtra(EXTRA_SESSION, SshSession::class.java)
+            } else {
+                intent.getSerializableExtra(EXTRA_SESSION) as? SshSession
+            }
+        val loaded = direct ?: id?.let { SessionStore.get(this, it) }
         if (loaded == null) {
             finish()
             return
@@ -161,17 +169,22 @@ class TerminalActivity : ThemedActivity() {
                 if (session.authType == SshSession.AUTH_PASSWORD && session.password.isNotEmpty()) {
                     s.setPassword(session.password)
                 }
-                // Empty stored password => JSch asks via UserInfo (PuTTY-like prompt).
+                // Empty stored password => JSch asks via UserInfo (prompt dialog).
                 s.setServerAliveInterval(30000)
                 s.connect(CONNECT_TIMEOUT)
 
-                // Remember successful connection time
+                // Remember successful connection time (only for saved sessions)
                 SessionStore.get(appContext, session.id)?.let {
                     it.lastConnected = System.currentTimeMillis()
                     SessionStore.upsert(appContext, it)
                 }
 
-                // Persist the host key after first acceptance (PuTTY-like)
+                // A quick-connect session is not stored - offer to save it
+                if (SessionStore.get(appContext, session.id) == null) {
+                    runOnUiThread { offerSaveSession() }
+                }
+
+                // Persist the host key after first acceptance
                 try {
                     val repo = KnownHostsRepository(appContext)
                     val hk = s.hostKey
@@ -234,6 +247,24 @@ class TerminalActivity : ThemedActivity() {
                 try { sshSession?.disconnect() } catch (e: Exception) {}
             }
         }
+    }
+
+    /** Offers to add a quick-connect session to the saved list. */
+    private fun offerSaveSession() {
+        if (isFinishing || isDestroyed) return
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.save_connection_title)
+            .setMessage(getString(R.string.save_connection_msg, session.address()))
+            .setPositiveButton(R.string.btn_save) { _, _ ->
+                if (session.name.isBlank()) {
+                    session.name = session.host
+                }
+                SessionStore.upsert(this, session)
+                Toast.makeText(this, R.string.session_saved, Toast.LENGTH_SHORT).show()
+                binding.toolbar.subtitle = session.address()
+            }
+            .setNegativeButton(R.string.update_later, null)
+            .show()
     }
 
     /** Translates low-level JSch messages into user-friendly strings. */

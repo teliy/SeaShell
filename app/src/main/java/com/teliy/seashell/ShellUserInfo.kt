@@ -14,7 +14,7 @@ import java.util.concurrent.CountDownLatch
 
 /**
  * JSch UserInfo implementation that shows real dialogs on the UI thread
- * and blocks the SSH thread until the user answers (PuTTY-like prompts).
+ * and blocks the SSH thread until the user answers.
  *
  * Handles: host-key confirmation, password prompts, key passphrase prompts
  * and keyboard-interactive (PAM / 2FA) challenges.
@@ -83,7 +83,7 @@ class ShellUserInfo(private val activity: Activity) : UserInfo, UIKeyboardIntera
 
     override fun promptPassword(message: String?): Boolean {
         // JSch may ask several times (wrong password, empty store, retries) -
-        // always show a fresh dialog, like PuTTY does.
+        // always show a fresh dialog.
         val prompt = message ?: activity.getString(R.string.prompt_password)
         val answer = askForSecret(prompt) ?: return false
         password = answer

@@ -28,7 +28,7 @@
     <string name="auth_password">Contraseña</string>
     <string name="auth_key">Clave privada</string>
     <string name="field_password">Contraseña</string>
-    <string name="field_password_hint">Déjalo vacío para que se pida en cada conexión (estilo PuTTY)</string>
+    <string name="field_password_hint">Déjalo vacío: la contraseña se pedirá en cada conexión</string>
     <string name="field_passphrase">Frase de la clave (opcional)</string>
     <string name="field_key_file">Archivo de clave</string>
     <string name="btn_choose_key">Elegir archivo</string>
@@ -71,7 +71,7 @@
     <string name="clear_known_hosts_confirm">Se eliminarán las claves de host SSH guardadas. Tendrás que confirmarlas de nuevo en la próxima conexión.</string>
     <string name="known_hosts_cleared">Claves de host eliminadas</string>
     <string name="about_title">Acerca de</string>
-    <string name="about_text">SeaShell: cliente SSH para Android al estilo PuTTY.
+    <string name="about_text">SeaShell: un cliente SSH sencillo y práctico para Android.
 Versión %1$s
 
 Software libre bajo la licencia GNU GPL v3.</string>
@@ -96,4 +96,12 @@ Software libre bajo la licencia GNU GPL v3.</string>
     <string name="update_check_failed">No se pudo buscar actualizaciones. Comprueba la red.</string>
     <string name="update_download_failed">Error al descargar. Inténtalo más tarde.</string>
     <string name="update_install_permission">Permite instalar aplicaciones de esta fuente en los ajustes del sistema y la actualización continuará.</string>
+    <string name="quick_connect">Conexión rápida</string>
+    <string name="quick_connect_hint">Dirección</string>
+    <string name="quick_connect_helper">usuario@host:puerto, host:puerto o host</string>
+    <string name="btn_connect">Conectar</string>
+    <string name="prompt_login">Iniciar sesión en %1$s</string>
+    <string name="error_address_invalid">Introduce una dirección válida</string>
+    <string name="save_connection_title">¿Guardar la conexión?</string>
+    <string name="save_connection_msg">¿Añadir %1$s a la lista de servidores guardados?</string>
 </resources>

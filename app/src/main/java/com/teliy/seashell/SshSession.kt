@@ -1,9 +1,11 @@
 package com.teliy.seashell
 
+import java.io.Serializable
 import java.util.UUID
 
 /**
- * A saved SSH connection (like a PuTTY session entry).
+ * An SSH connection entry: either saved in the session list or created
+ * on the fly for a quick, unsaved connection.
  */
 data class SshSession(
     var id: String = UUID.randomUUID().toString(),
@@ -18,7 +20,7 @@ data class SshSession(
     var keyPassphrase: String = "",
     var fontSize: Int = 14,
     var lastConnected: Long = 0
-) {
+) : Serializable {
     companion object {
         const val AUTH_PASSWORD = "password"
         const val AUTH_KEY = "key"
