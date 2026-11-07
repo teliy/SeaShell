@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="xterm.css">
+<style>
+  @font-face {
+    font-family: 'JetBrains Mono';
+    src: url('JetBrainsMono-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+  html, body {
+    height: 100%; margin: 0; padding: 0;
+    background: #0E1621; overflow: hidden;
+  }
+  #term { width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+<div id="term"></div>
+<script src="xterm.js"></script>
+<script src="fit.js"></script>
+<script>
+(function () {
+  var cfg = { fontSize: 14, cursor: '#4FC3F7', cursorBlink: true };
+  try { cfg = JSON.parse(window.SeaShellBridge.getConfig()); } catch (e) {}
+
+  var theme = {
+    background: '#0E1621',
+    foreground: '#D8DEE9',
+    cursor: cfg.cursor || '#4FC3F7',
+    cursorAccent: '#0E1621',
+    selectionBackground: '#33465F',
+    black: '#2E3440',
+    red: '#BF616A',
+    green: '#A3BE8C',
+    yellow: '#EBCB8B',
+    blue: '#81A1C1',
+    magenta: '#B48EAD',
+    cyan: '#88C0D0',
+    white: '#D8DEE9',
+    brightBlack: '#4C566A',
+    brightRed: '#E06C75',
+    brightGreen: '#A3BE8C',
+    brightYellow: '#EBCB8B',
+    brightBlue: '#81A1C1',
+    brightMagenta: '#B48EAD',
+    brightCyan: '#8FBCBB',
+    brightWhite: '#ECEFF4'
+  };
+
+  var term = new Terminal({
+    fontFamily: "'JetBrains Mono', 'DejaVu Sans Mono', monospace",
+    fontSize: cfg.fontSize || 14,
+    cursorBlink: !!cfg.cursorBlink,
+    scrollback: 5000,
+    theme: theme
+  });
+
+  var fit = new FitAddon.FitAddon();
+  term.loadAddon(fit);
+  term.open(document.getElementById('term'));
+
+  function doFit() {
+    try { fit.fit(); } catch (e) {}
+  }
+
+  window.terminalWrite = function (data) {
+    try { term.write(data); } catch (e) {}
+  };
+
+  window.terminalFontSize = function (size) {
+    try {
+      term.options.fontSize = size;
+      doFit();
+    } catch (e) {}
+  };
+
+  window.terminalReset = function () {
+    try { term.reset(); doFit(); } catch (e) {}
+  };
+
+  window.addEventListener('resize', doFit);
+  window.addEventListener('orientationchange', function () { setTimeout(doFit, 150); });
+
+  term.onData(function (d) {
+    try { window.SeaShellBridge.onData(d); } catch (e) {}
+  });
+
+  term.onResize(function (sz) {
+    try { window.SeaShellBridge.onResize(sz.cols, sz.rows); } catch (e) {}
+  });
+
+  setTimeout(doFit, 30);
+  setTimeout(doFit, 400);
+})();
+</script>
+</body>
+</html>

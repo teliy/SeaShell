@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#0A2A3F</color>
+
+    <!-- Terminal cursor accents per theme -->
+    <color name="term_cursor_ocean">#4FC3F7</color>
+    <color name="term_cursor_graphite">#9FB0C3</color>
+    <color name="term_cursor_sunset">#FF8A65</color>
+    <color name="term_cursor_forest">#81C784</color>
+    <color name="term_cursor_amethyst">#B388FF</color>
+    <color name="term_cursor_rose">#F06292</color>
+
+    <!-- Ocean -->
+    <color name="ocean_primary">#005FA3</color>
+    <color name="ocean_on_primary">#FFFFFF</color>
+    <color name="ocean_container">#D3E8FF</color>
+    <color name="ocean_on_container">#001C37</color>
+    <color name="ocean_secondary">#51606F</color>
+    <color name="ocean_secondary_container">#D5E4F7</color>
+    <color name="ocean_on_secondary_container">#0E1D2A</color>
+    <color name="ocean_tertiary">#006B5E</color>
+
+    <!-- Graphite -->
+    <color name="graphite_primary">#565F71</color>
+    <color name="graphite_on_primary">#FFFFFF</color>
+    <color name="graphite_container">#DAE2F9</color>
+    <color name="graphite_on_container">#131C2B</color>
+    <color name="graphite_secondary">#747A85</color>
+    <color name="graphite_secondary_container">#E2E5EE</color>
+    <color name="graphite_on_secondary_container">#1B202B</color>
+    <color name="graphite_tertiary">#6B5778</color>
+
+    <!-- Sunset -->
+    <color name="sunset_primary">#B03A16</color>
+    <color name="sunset_on_primary">#FFFFFF</color>
+    <color name="sunset_container">#FFDBCB</color>
+    <color name="sunset_on_container">#3A0D02</color>
+    <color name="sunset_secondary">#7A5748</color>
+    <color name="sunset_secondary_container">#FFDBCC</color>
+    <color name="sunset_on_secondary_container">#2C150B</color>
+    <color name="sunset_tertiary">#6C5B2F</color>
+
+    <!-- Forest -->
+    <color name="forest_primary">#2E6B34</color>
+    <color name="forest_on_primary">#FFFFFF</color>
+    <color name="forest_container">#B8F1B6</color>
+    <color name="forest_on_container">#002204</color>
+    <color name="forest_secondary">#4F6352</color>
+    <color name="forest_secondary_container">#D2E8D1</color>
+    <color name="forest_on_secondary_container">#0C1F0F</color>
+    <color name="forest_tertiary">#38656A</color>
+
+    <!-- Amethyst -->
+    <color name="amethyst_primary">#5E4EA8</color>
+    <color name="amethyst_on_primary">#FFFFFF</color>
+    <color name="amethyst_container">#E7DEFF</color>
+    <color name="amethyst_on_container">#1D1147</color>
+    <color name="amethyst_secondary">#625B71</color>
+    <color name="amethyst_secondary_container">#E8DEF8</color>
+    <color name="amethyst_on_secondary_container">#1D192B</color>
+    <color name="amethyst_tertiary">#7D5260</color>
+
+    <!-- Rose -->
+    <color name="rose_primary">#A6304F</color>
+    <color name="rose_on_primary">#FFFFFF</color>
+    <color name="rose_container">#FFD9DE</color>
+    <color name="rose_on_container">#3E001D</color>
+    <color name="rose_secondary">#75565D</color>
+    <color name="rose_secondary_container">#FFD9DE</color>
+    <color name="rose_on_secondary_container">#2B151A</color>
+    <color name="rose_tertiary">#77536D</color>
+</resources>

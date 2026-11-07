@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.SeaShell" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="Theme.SeaShell.Ocean">
+        <item name="colorPrimary">@color/ocean_primary</item>
+        <item name="colorOnPrimary">@color/ocean_on_primary</item>
+        <item name="colorPrimaryContainer">@color/ocean_container</item>
+        <item name="colorOnPrimaryContainer">@color/ocean_on_container</item>
+        <item name="colorSecondary">@color/ocean_secondary</item>
+        <item name="colorSecondaryContainer">@color/ocean_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/ocean_on_secondary_container</item>
+        <item name="colorTertiary">@color/ocean_tertiary</item>
+        <item name="termBackground">#0E1621</item>
+    </style>
+
+    <style name="Theme.SeaShell.Graphite">
+        <item name="colorPrimary">@color/graphite_primary</item>
+        <item name="colorOnPrimary">@color/graphite_on_primary</item>
+        <item name="colorPrimaryContainer">@color/graphite_container</item>
+        <item name="colorOnPrimaryContainer">@color/graphite_on_container</item>
+        <item name="colorSecondary">@color/graphite_secondary</item>
+        <item name="colorSecondaryContainer">@color/graphite_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/graphite_on_secondary_container</item>
+        <item name="colorTertiary">@color/graphite_tertiary</item>
+        <item name="termBackground">#101418</item>
+    </style>
+
+    <style name="Theme.SeaShell.Sunset">
+        <item name="colorPrimary">@color/sunset_primary</item>
+        <item name="colorOnPrimary">@color/sunset_on_primary</item>
+        <item name="colorPrimaryContainer">@color/sunset_container</item>
+        <item name="colorOnPrimaryContainer">@color/sunset_on_container</item>
+        <item name="colorSecondary">@color/sunset_secondary</item>
+        <item name="colorSecondaryContainer">@color/sunset_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/sunset_on_secondary_container</item>
+        <item name="colorTertiary">@color/sunset_tertiary</item>
+        <item name="termBackground">#1A1210</item>
+    </style>
+
+    <style name="Theme.SeaShell.Forest">
+        <item name="colorPrimary">@color/forest_primary</item>
+        <item name="colorOnPrimary">@color/forest_on_primary</item>
+        <item name="colorPrimaryContainer">@color/forest_container</item>
+        <item name="colorOnPrimaryContainer">@color/forest_on_container</item>
+        <item name="colorSecondary">@color/forest_secondary</item>
+        <item name="colorSecondaryContainer">@color/forest_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/forest_on_secondary_container</item>
+        <item name="colorTertiary">@color/forest_tertiary</item>
+        <item name="termBackground">#0F1712</item>
+    </style>
+
+    <style name="Theme.SeaShell.Amethyst">
+        <item name="colorPrimary">@color/amethyst_primary</item>
+        <item name="colorOnPrimary">@color/amethyst_on_primary</item>
+        <item name="colorPrimaryContainer">@color/amethyst_container</item>
+        <item name="colorOnPrimaryContainer">@color/amethyst_on_container</item>
+        <item name="colorSecondary">@color/amethyst_secondary</item>
+        <item name="colorSecondaryContainer">@color/amethyst_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/amethyst_on_secondary_container</item>
+        <item name="colorTertiary">@color/amethyst_tertiary</item>
+        <item name="termBackground">#14101F</item>
+    </style>
+
+    <style name="Theme.SeaShell.Rose">
+        <item name="colorPrimary">@color/rose_primary</item>
+        <item name="colorOnPrimary">@color/rose_on_primary</item>
+        <item name="colorPrimaryContainer">@color/rose_container</item>
+        <item name="colorOnPrimaryContainer">@color/rose_on_container</item>
+        <item name="colorSecondary">@color/rose_secondary</item>
+        <item name="colorSecondaryContainer">@color/rose_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/rose_on_secondary_container</item>
+        <item name="colorTertiary">@color/rose_tertiary</item>
+        <item name="termBackground">#190F14</item>
+    </style>
+
+</resources>

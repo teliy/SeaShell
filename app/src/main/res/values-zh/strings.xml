@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">SeaShell</string>
+    <string name="sessions_title">会话</string>
+    <string name="menu_settings">设置</string>
+    <string name="menu_about">关于</string>
+
+    <string name="empty_title">还没有服务器</string>
+    <string name="empty_hint">点击“+”添加第一个 SSH 连接</string>
+    <string name="fab_add">添加服务器</string>
+    <string name="session_cd">%1$s — %2$s</string>
+    <string name="avatar_desc">服务器图标</string>
+    <string name="terminal_view_desc">终端</string>
+
+    <string name="menu_edit">编辑</string>
+    <string name="menu_duplicate">复制</string>
+    <string name="menu_delete">删除</string>
+    <string name="delete_confirm_title">删除连接</string>
+    <string name="delete_confirm_msg">确定删除“%1$s”吗？</string>
+    <string name="copy_suffix">（副本）</string>
+
+    <string name="editor_new_title">新建连接</string>
+    <string name="editor_edit_title">编辑连接</string>
+    <string name="field_name">名称</string>
+    <string name="field_host">主机</string>
+    <string name="field_port">端口</string>
+    <string name="field_username">用户名</string>
+    <string name="auth_type">身份验证</string>
+    <string name="auth_password">密码</string>
+    <string name="auth_key">私钥</string>
+    <string name="field_password">密码</string>
+    <string name="field_passphrase">密钥口令（可选）</string>
+    <string name="field_key_file">私钥文件</string>
+    <string name="btn_choose_key">选择文件</string>
+    <string name="btn_save">保存</string>
+    <string name="btn_cancel">取消</string>
+    <string name="btn_ok">确定</string>
+    <string name="error_host_required">请输入主机</string>
+    <string name="error_username_required">请输入用户名</string>
+    <string name="error_port_invalid">端口无效</string>
+    <string name="session_saved">已保存</string>
+    <string name="key_file_missing">无法读取私钥文件，请重新选择。</string>
+
+    <string name="term_connecting">正在连接 %1$s…</string>
+    <string name="term_error">连接错误：%1$s</string>
+    <string name="term_closed">连接已关闭</string>
+    <string name="btn_retry">重试</string>
+    <string name="btn_close">关闭</string>
+    <string name="disconnect_title">断开连接</string>
+    <string name="disconnect_confirm">要断开与该服务器的连接吗？</string>
+    <string name="btn_disconnect">断开</string>
+    <string name="menu_paste">粘贴</string>
+    <string name="menu_font_up">放大字体</string>
+    <string name="menu_font_down">缩小字体</string>
+    <string name="host_key_title">未知主机</string>
+
+    <string name="settings_title">设置</string>
+    <string name="theme_title">主题</string>
+    <string name="theme_ocean">海洋</string>
+    <string name="theme_graphite">石墨</string>
+    <string name="theme_sunset">日落</string>
+    <string name="theme_forest">森林</string>
+    <string name="theme_amethyst">紫晶</string>
+    <string name="theme_rose">玫瑰</string>
+    <string name="language_title">语言</string>
+    <string name="lang_system">跟随系统</string>
+    <string name="security_title">安全</string>
+    <string name="clear_known_hosts">清除已保存的主机密钥</string>
+    <string name="clear_known_hosts_confirm">已保存的 SSH 主机密钥将被删除，下次连接时需要重新确认。</string>
+    <string name="known_hosts_cleared">主机密钥已清除</string>
+    <string name="about_title">关于</string>
+    <string name="about_text">SeaShell —— Android 上的 PuTTY 风格 SSH 客户端。\n版本 %1$s\n\n基于 MIT 许可证的开源软件。</string>
+</resources>

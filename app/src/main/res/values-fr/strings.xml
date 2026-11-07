@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">SeaShell</string>
+    <string name="sessions_title">Sessions</string>
+    <string name="menu_settings">Paramètres</string>
+    <string name="menu_about">À propos</string>
+
+    <string name="empty_title">Aucun serveur</string>
+    <string name="empty_hint">Appuyez sur « + » pour ajouter votre première connexion SSH</string>
+    <string name="fab_add">Ajouter un serveur</string>
+    <string name="session_cd">%1$s — %2$s</string>
+    <string name="avatar_desc">Icône du serveur</string>
+    <string name="terminal_view_desc">Terminal</string>
+
+    <string name="menu_edit">Modifier</string>
+    <string name="menu_duplicate">Dupliquer</string>
+    <string name="menu_delete">Supprimer</string>
+    <string name="delete_confirm_title">Supprimer la connexion</string>
+    <string name="delete_confirm_msg">Supprimer « %1$s » ?</string>
+    <string name="copy_suffix">(copie)</string>
+
+    <string name="editor_new_title">Nouvelle connexion</string>
+    <string name="editor_edit_title">Modifier la connexion</string>
+    <string name="field_name">Nom</string>
+    <string name="field_host">Hôte</string>
+    <string name="field_port">Port</string>
+    <string name="field_username">Utilisateur</string>
+    <string name="auth_type">Authentification</string>
+    <string name="auth_password">Mot de passe</string>
+    <string name="auth_key">Clé privée</string>
+    <string name="field_password">Mot de passe</string>
+    <string name="field_passphrase">Phrase secrète de la clé (facultatif)</string>
+    <string name="field_key_file">Fichier de clé</string>
+    <string name="btn_choose_key">Choisir un fichier</string>
+    <string name="btn_save">Enregistrer</string>
+    <string name="btn_cancel">Annuler</string>
+    <string name="btn_ok">OK</string>
+    <string name="error_host_required">Saisissez l\'hôte</string>
+    <string name="error_username_required">Saisissez le nom d\'utilisateur</string>
+    <string name="error_port_invalid">Port invalide</string>
+    <string name="session_saved">Enregistré</string>
+    <string name="key_file_missing">Impossible de lire la clé privée. Sélectionnez à nouveau le fichier.</string>
+
+    <string name="term_connecting">Connexion à %1$s…</string>
+    <string name="term_error">Erreur de connexion : %1$s</string>
+    <string name="term_closed">Connexion fermée</string>
+    <string name="btn_retry">Réessayer</string>
+    <string name="btn_close">Fermer</string>
+    <string name="disconnect_title">Déconnexion</string>
+    <string name="disconnect_confirm">Se déconnecter de ce serveur ?</string>
+    <string name="btn_disconnect">Déconnecter</string>
+    <string name="menu_paste">Coller</string>
+    <string name="menu_font_up">Augmenter la police</string>
+    <string name="menu_font_down">Réduire la police</string>
+    <string name="host_key_title">Hôte inconnu</string>
+
+    <string name="settings_title">Paramètres</string>
+    <string name="theme_title">Thème</string>
+    <string name="theme_ocean">Océan</string>
+    <string name="theme_graphite">Graphite</string>
+    <string name="theme_sunset">Couchant</string>
+    <string name="theme_forest">Forêt</string>
+    <string name="theme_amethyst">Améthyste</string>
+    <string name="theme_rose">Rose</string>
+    <string name="language_title">Langue</string>
+    <string name="lang_system">Système</string>
+    <string name="security_title">Sécurité</string>
+    <string name="clear_known_hosts">Oublier les clés d\'hôte enregistrées</string>
+    <string name="clear_known_hosts_confirm">Les clés d\'hôte SSH enregistrées seront supprimées. Vous devrez les confirmer à nouveau lors de la prochaine connexion.</string>
+    <string name="known_hosts_cleared">Clés d\'hôte supprimées</string>
+    <string name="about_title">À propos</string>
+    <string name="about_text">SeaShell — client SSH pour Android, dans l\'esprit de PuTTY.\nVersion %1$s\n\nLogiciel libre sous licence MIT.</string>
+</resources>

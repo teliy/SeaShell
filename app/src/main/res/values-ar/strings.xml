@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">SeaShell</string>
+    <string name="sessions_title">الجلسات</string>
+    <string name="menu_settings">الإعدادات</string>
+    <string name="menu_about">حول</string>
+
+    <string name="empty_title">لا توجد خوادم بعد</string>
+    <string name="empty_hint">انقر على «+» لإضافة أول اتصال SSH</string>
+    <string name="fab_add">إضافة خادم</string>
+    <string name="session_cd">%1$s — %2$s</string>
+    <string name="avatar_desc">أيقونة الخادم</string>
+    <string name="terminal_view_desc">الطرفية</string>
+
+    <string name="menu_edit">تعديل</string>
+    <string name="menu_duplicate">تكرار</string>
+    <string name="menu_delete">حذف</string>
+    <string name="delete_confirm_title">حذف الاتصال</string>
+    <string name="delete_confirm_msg">حذف «%1$s»؟</string>
+    <string name="copy_suffix">(نسخة)</string>
+
+    <string name="editor_new_title">اتصال جديد</string>
+    <string name="editor_edit_title">تعديل الاتصال</string>
+    <string name="field_name">الاسم</string>
+    <string name="field_host">المضيف</string>
+    <string name="field_port">المنفذ</string>
+    <string name="field_username">اسم المستخدم</string>
+    <string name="auth_type">المصادقة</string>
+    <string name="auth_password">كلمة المرور</string>
+    <string name="auth_key">المفتاح الخاص</string>
+    <string name="field_password">كلمة المرور</string>
+    <string name="field_passphrase">عبارة مرور المفتاح (اختياري)</string>
+    <string name="field_key_file">ملف المفتاح</string>
+    <string name="btn_choose_key">اختيار ملف</string>
+    <string name="btn_save">حفظ</string>
+    <string name="btn_cancel">إلغاء</string>
+    <string name="btn_ok">موافق</string>
+    <string name="error_host_required">أدخل المضيف</string>
+    <string name="error_username_required">أدخل اسم المستخدم</string>
+    <string name="error_port_invalid">منفذ غير صالح</string>
+    <string name="session_saved">تم الحفظ</string>
+    <string name="key_file_missing">تعذّر قراءة المفتاح الخاص. اختر الملف مرة أخرى.</string>
+
+    <string name="term_connecting">جارٍ الاتصال بـ %1$s…</string>
+    <string name="term_error">خطأ في الاتصال: %1$s</string>
+    <string name="term_closed">تم إغلاق الاتصال</string>
+    <string name="btn_retry">إعادة المحاولة</string>
+    <string name="btn_close">إغلاق</string>
+    <string name="disconnect_title">قطع الاتصال</string>
+    <string name="disconnect_confirm">هل تريد قطع الاتصال بهذا الخادم؟</string>
+    <string name="btn_disconnect">قطع الاتصال</string>
+    <string name="menu_paste">لصق</string>
+    <string name="menu_font_up">تكبير الخط</string>
+    <string name="menu_font_down">تصغير الخط</string>
+    <string name="host_key_title">مضيف غير معروف</string>
+
+    <string name="settings_title">الإعدادات</string>
+    <string name="theme_title">المظهر</string>
+    <string name="theme_ocean">المحيط</string>
+    <string name="theme_graphite">الغرافيت</string>
+    <string name="theme_sunset">الغروب</string>
+    <string name="theme_forest">الغابة</string>
+    <string name="theme_amethyst">الجمشت</string>
+    <string name="theme_rose">الوردة</string>
+    <string name="language_title">اللغة</string>
+    <string name="lang_system">لغة النظام</string>
+    <string name="security_title">الأمان</string>
+    <string name="clear_known_hosts">نسيان مفاتيح المضيفين المحفوظة</string>
+    <string name="clear_known_hosts_confirm">سيتم حذف مفاتيح المضيفين المحفوظة، وسيُطلب منك تأكيدها مرة أخرى عند الاتصال التالي.</string>
+    <string name="known_hosts_cleared">تم حذف مفاتيح المضيفين</string>
+    <string name="about_title">حول</string>
+    <string name="about_text">SeaShell — عميل SSH لنظام Android بأسلوب PuTTY.\nالإصدار %1$s\n\nبرنامج حر ومفتوح المصدر بموجب ترخيص MIT.</string>
+</resources>

@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">SeaShell</string>
+    <string name="sessions_title">Подключения</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="menu_about">О программе</string>
+
+    <string name="empty_title">Пока нет серверов</string>
+    <string name="empty_hint">Нажмите «+», чтобы добавить первое SSH-подключение</string>
+    <string name="fab_add">Добавить сервер</string>
+    <string name="session_cd">%1$s — %2$s</string>
+    <string name="avatar_desc">Значок сервера</string>
+    <string name="terminal_view_desc">Терминал</string>
+
+    <string name="menu_edit">Изменить</string>
+    <string name="menu_duplicate">Дублировать</string>
+    <string name="menu_delete">Удалить</string>
+    <string name="delete_confirm_title">Удаление подключения</string>
+    <string name="delete_confirm_msg">Удалить «%1$s»?</string>
+    <string name="copy_suffix">(копия)</string>
+
+    <string name="editor_new_title">Новое подключение</string>
+    <string name="editor_edit_title">Изменение подключения</string>
+    <string name="field_name">Название</string>
+    <string name="field_host">Хост</string>
+    <string name="field_port">Порт</string>
+    <string name="field_username">Пользователь</string>
+    <string name="auth_type">Аутентификация</string>
+    <string name="auth_password">Пароль</string>
+    <string name="auth_key">Ключ</string>
+    <string name="field_password">Пароль</string>
+    <string name="field_passphrase">Парольная фраза ключа (необязательно)</string>
+    <string name="field_key_file">Файл ключа</string>
+    <string name="btn_choose_key">Выбрать файл</string>
+    <string name="btn_save">Сохранить</string>
+    <string name="btn_cancel">Отмена</string>
+    <string name="btn_ok">ОК</string>
+    <string name="error_host_required">Введите хост</string>
+    <string name="error_username_required">Введите имя пользователя</string>
+    <string name="error_port_invalid">Неверный порт</string>
+    <string name="session_saved">Сохранено</string>
+    <string name="key_file_missing">Не удалось прочитать файл ключа. Выберите файл заново.</string>
+
+    <string name="term_connecting">Подключение к %1$s…</string>
+    <string name="term_error">Ошибка подключения: %1$s</string>
+    <string name="term_closed">Соединение закрыто</string>
+    <string name="btn_retry">Повторить</string>
+    <string name="btn_close">Закрыть</string>
+    <string name="disconnect_title">Отключение</string>
+    <string name="disconnect_confirm">Отключиться от этого сервера?</string>
+    <string name="btn_disconnect">Отключиться</string>
+    <string name="menu_paste">Вставить</string>
+    <string name="menu_font_up">Увеличить шрифт</string>
+    <string name="menu_font_down">Уменьшить шрифт</string>
+    <string name="host_key_title">Неизвестный хост</string>
+
+    <string name="settings_title">Настройки</string>
+    <string name="theme_title">Тема</string>
+    <string name="theme_ocean">Океан</string>
+    <string name="theme_graphite">Графит</string>
+    <string name="theme_sunset">Закат</string>
+    <string name="theme_forest">Лес</string>
+    <string name="theme_amethyst">Аметист</string>
+    <string name="theme_rose">Роза</string>
+    <string name="language_title">Язык</string>
+    <string name="lang_system">Системный</string>
+    <string name="security_title">Безопасность</string>
+    <string name="clear_known_hosts">Забыть сохранённые ключи хостов</string>
+    <string name="clear_known_hosts_confirm">Сохранённые SSH-ключи хостов будут удалены. При следующем подключении их нужно будет подтвердить снова.</string>
+    <string name="known_hosts_cleared">Ключи хостов удалены</string>
+    <string name="about_title">О программе</string>
+    <string name="about_text">SeaShell — SSH-клиент для Android в стиле PuTTY.\nВерсия %1$s\n\nСвободное ПО под лицензией MIT.</string>
+</resources>
