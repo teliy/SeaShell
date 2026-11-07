@@ -24,12 +24,14 @@ Kotlin · minSdk 24 (Android 7.0) · JSch + xterm.js
 - 🎨 **6 тем оформления** — Океан, Графит, Закат, Лес, Аметист, Роза (светлые и тёмные варианты)
 - 🌍 **6 языков** — русский, English, français, 中文, العربية (RTL), español; переключение внутри приложения
 - ✍️ **Удобства терминала** — панель доп. клавиш (ESC, TAB, CTRL, ALT, стрелки, HOME, END, PGUP, PGDN): Ctrl и Alt — с залипанием и блокировкой долгим нажатием, работают с любыми кнопками; вставка из буфера обмена, изменение размера шрифта, экран не гаснет во время сессии
-- 📶 **Связь не рвётся** — во время сессии работает foreground-сервис с wake-lock: CPU и Wi‑Fi не засыпают при выключенном экране, keep-alive продолжает идти, а при разрыве сразу предлагается переподключение
+- 📶 **Связь не рвётся** — во время сессии работает foreground-сервис с wake-lock: CPU и Wi‑Fi не засыпают при выключенном экране, keep-alive продолжает идти
+- 🔁 **Авто-переподключение** — если связь всё же прервалась (сбой Wi‑Fi, сон сети, перезапуск сервера), SeaShell сам восстанавливает сессию в фоне за несколько попыток и сообщает тостом «Соединение восстановлено»; экран «Соединение закрыто» появляется только если все попытки не удались
+- 🔋 **Исключение из оптимизации батареи** — при первом подключении приложение предложит отключить doze-ограничения, чтобы фоновое удержание и восстановление связи работали надёжно
 - 🤖 **Поддержка Android 7.0+** (API 24), адаптивная иконка и monochrome-слой для Android 13+
 
 ## Установка
 
-Скачайте готовый `SeaShell-1.5.0.apk` из раздела [Releases](https://github.com/teliy/SeaShell/releases) и установите его
+Скачайте готовый `SeaShell-1.6.0.apk` из раздела [Releases](https://github.com/teliy/SeaShell/releases) и установите его
 (при необходимости разрешите установку из неизвестных источников).
 
 Дальнейшие обновления можно ставить прямо из приложения: **Настройки → Проверить обновления**.
@@ -95,6 +97,8 @@ app/src/main/java/com/teliy/seashell/
 SeaShell is an open-source SSH client for Android 7.0+: saved server list, quick connect without saving,
 interactive xterm-256color terminal (xterm.js + JSch), password/key auth, host key verification,
 an extra keys bar (ESC, TAB, sticky/latchable Ctrl and Alt, arrows, HOME, END, PGUP, PGDN),
+a foreground service with wake locks that keeps the link alive with the screen off, transparent
+auto-reconnect when the link drops, a one-time battery optimization exemption prompt,
 6 color themes and 6 languages (ru/en/fr/zh/ar/es with RTL), font size control and clipboard paste.
 Licensed under the GNU GPL v3.
 

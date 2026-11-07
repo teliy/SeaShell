@@ -114,4 +114,9 @@
     <string name="keepalive_notification_title">Активная SSH-сессия</string>
     <string name="keepalive_notification_text">SeaShell поддерживает соединение, даже когда экран выключен</string>
     <string name="link_lost">Связь с сервером прервана. Нажмите «Повторить» для переподключения.</string>
+    <string name="reconnecting">Связь потеряна — переподключение (%1$d из %2$d)…</string>
+    <string name="reconnected">Соединение восстановлено</string>
+    <string name="battery_title">Отключить оптимизацию батареи?</string>
+    <string name="battery_message">Чтобы SeaShell не терял SSH-связь при выключенном экране, разрешите приложению работать без ограничений батареи.</string>
+    <string name="battery_btn_settings">Разрешить</string>
 </resources>

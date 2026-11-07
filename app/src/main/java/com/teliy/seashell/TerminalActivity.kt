@@ -4,11 +4,14 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
+import android.provider.Settings
 import android.util.TypedValue
 import android.view.HapticFeedbackConstants
 import android.view.Menu
@@ -31,7 +34,9 @@ import com.teliy.seashell.databinding.ActivityTerminalBinding
 import org.json.JSONObject
 import java.io.OutputStream
 import java.nio.ByteBuffer
+import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicLong
 import kotlin.concurrent.thread
 
 /**
@@ -44,6 +49,9 @@ class TerminalActivity : ThemedActivity() {
         const val EXTRA_SESSION_ID = "session_id"
         const val EXTRA_SESSION = "session_extra"
         private const val CONNECT_TIMEOUT = 15000
+        private const val RECONNECT_ATTEMPTS = 4
+        private const val RECONNECT_DELAY_MS = 1500L
+        private const val PREFS = "seashell_prefs"
     }
 
     private lateinit var binding: ActivityTerminalBinding
@@ -53,6 +61,20 @@ class TerminalActivity : ThemedActivity() {
     private var out: OutputStream? = null
     private val running = AtomicBoolean(false)
     private val connecting = AtomicBoolean(false)
+
+    /**
+     * Every connection attempt owns an epoch. Callbacks (read thread, JSch
+     * streams, bridge) report the epoch they belong to; a stale report is
+     * dropped. Without this, a torn-down session waking up late could kill
+     * the freshly established one - that was the "press UP and the
+     * connection dies right after reconnecting" bug.
+     */
+    private val linkEpoch = AtomicLong(0)
+    private val everConnected = AtomicBoolean(false)
+
+    @Volatile private var userClosed = false
+    private var saveOffered = false
+    private val writer = Executors.newSingleThreadExecutor()
     private var fontSize = 14
 
     // Sticky modifiers for the extra keys bar (also read from the JS bridge thread)
@@ -148,9 +170,10 @@ class TerminalActivity : ThemedActivity() {
     }
 
     private fun retry() {
-        // Tear the previous session down right away, so its asynchronous
-        // teardown can never touch the session that is about to be created
-        // (that cross-disconnect is what produced the JSch NPE crash screen).
+        // Invalidate every callback of the previous session first, so its
+        // late teardown can never touch the session about to be created.
+        linkEpoch.incrementAndGet()
+        userClosed = false
         running.set(false)
         try { channel?.disconnect() } catch (e: Exception) {}
         try { sshSession?.disconnect() } catch (e: Exception) {}
@@ -163,6 +186,7 @@ class TerminalActivity : ThemedActivity() {
         // One session at a time: a double-tap on "Retry" must not open two
         // parallel SSH sessions racing each other's teardown.
         if (!connecting.compareAndSet(false, true)) return
+        val myEpoch = linkEpoch.incrementAndGet()
         showProgress(getString(R.string.term_connecting, session.address()))
         val appContext = applicationContext
         thread(name = "ssh-session") {
@@ -210,8 +234,9 @@ class TerminalActivity : ThemedActivity() {
                     SessionStore.upsert(appContext, it)
                 }
 
-                // A quick-connect session is not stored - offer to save it
-                if (SessionStore.get(appContext, session.id) == null) {
+                // A quick-connect session is not stored - offer to save it (once)
+                if (!saveOffered && SessionStore.get(appContext, session.id) == null) {
+                    saveOffered = true
                     runOnUiThread { offerSaveSession() }
                 }
 
@@ -238,11 +263,18 @@ class TerminalActivity : ThemedActivity() {
                 ch.connect()
 
                 runOnUiThread {
+                    if (linkEpoch.get() != myEpoch) return@runOnUiThread
                     hideProgress()
                     // Keep the link alive with the screen off (wake locks)
                     TerminalService.start(this@TerminalActivity)
+                    // One-time: ask to skip battery optimizations (doze kills
+                    // idle SSH links even with a foreground service)
+                    binding.root.postDelayed({
+                        if (!isFinishing && !isDestroyed) maybeAskBatteryOptimization()
+                    }, 2500)
                 }
                 running.set(true)
+                everConnected.set(true)
 
                 // Streaming UTF-8 decoder keeps state between chunks
                 val dec = Charsets.UTF_8.newDecoder()
@@ -267,24 +299,133 @@ class TerminalActivity : ThemedActivity() {
                         break
                     }
                 }
-                if (running.getAndSet(false)) {
-                    TerminalService.stop(this@TerminalActivity)
-                    runOnUiThread { showError("", closed = true) }
-                }
+                // EOF - the server ended the session
+                val code = try { ch.exitStatus } catch (e: Exception) { -1 }
+                onLinkBroken(myEpoch, null, code)
             } catch (e: Exception) {
-                if (running.getAndSet(false)) {
-                    // was connected and the stream died - surface the broken link
-                    TerminalService.stop(this@TerminalActivity)
-                    runOnUiThread { showError("", closed = true) }
-                } else {
-                    val msg = friendlyError(e)
-                    runOnUiThread { showError(msg, closed = false) }
-                }
+                onLinkBroken(myEpoch, e, -1)
             } finally {
                 try { ch?.disconnect() } catch (e: Exception) {}
                 try { s?.disconnect() } catch (e: Exception) {}
                 connecting.set(false)
             }
+        }
+    }
+
+    /**
+     * Unified end-of-session handler. `myEpoch` identifies the connection
+     * attempt that is reporting - stale reports are dropped. `exitCode >= 0`
+     * means the shell exited normally (the user typed "exit"), so there is
+     * nothing to reconnect to.
+     */
+    private fun onLinkBroken(myEpoch: Long, cause: Exception?, exitCode: Int) {
+        if (linkEpoch.get() != myEpoch) return
+        val wasUp = running.getAndSet(false)
+        if (!wasUp) {
+            if (everConnected.get()) return // another thread already handles the drop
+            // The session never came up - a plain connect error.
+            TerminalService.stop(this)
+            val msg = cause?.let { friendlyError(it) } ?: getString(R.string.link_lost)
+            runOnUiThread { showError(msg, closed = false) }
+            return
+        }
+        if (exitCode >= 0 || userClosed || isFinishing || isDestroyed) {
+            // Normal exit or the user is leaving - no auto-reconnect.
+            TerminalService.stop(this)
+            runOnUiThread { showError("", closed = true) }
+            return
+        }
+        // The link broke underneath a live session (Wi-Fi blip, doze,
+        // server restart...). Self-heal instead of showing a dead screen.
+        runOnUiThread { startAutoReconnect() }
+    }
+
+    /** Transparent self-healing: a few fast attempts with growing pauses. */
+    private fun startAutoReconnect() {
+        if (isFinishing || isDestroyed) return
+        thread(name = "auto-reconnect") {
+            for (attempt in 1..RECONNECT_ATTEMPTS) {
+                if (isFinishing || isDestroyed) return@thread
+                // Keep the wake locks while retrying, so the session also
+                // heals itself in the background with the screen off.
+                TerminalService.start(this@TerminalActivity)
+                runOnUiThread {
+                    showProgress(getString(R.string.reconnecting, attempt, RECONNECT_ATTEMPTS))
+                }
+                val epochBefore = linkEpoch.get()
+                connect() // bumps the epoch; runs on its own ssh-session thread
+                // Wait until the attempt settles: a live session (success)
+                // or the connect thread finishing (failure).
+                while (!isFinishing && !isDestroyed && !running.get() && connecting.get()) {
+                    try { Thread.sleep(100) } catch (e: InterruptedException) { return@thread }
+                }
+                if (running.get()) {
+                    runOnUiThread { onReconnected() }
+                    return@thread
+                }
+                if (linkEpoch.get() != epochBefore + 1) return@thread // superseded
+                if (attempt < RECONNECT_ATTEMPTS) {
+                    var waited = 0L
+                    val pause = RECONNECT_DELAY_MS * attempt
+                    while (waited < pause && !isFinishing && !isDestroyed) {
+                        try { Thread.sleep(150) } catch (e: InterruptedException) { return@thread }
+                        waited += 150
+                    }
+                }
+            }
+            // All attempts failed - show the usual reconnect screen.
+            TerminalService.stop(this@TerminalActivity)
+            runOnUiThread { showError("", closed = true) }
+        }
+    }
+
+    private fun onReconnected() {
+        hideProgress()
+        TerminalService.start(this)
+        // The new session reprints its banner; clear stale content first.
+        binding.webView.evaluateJavascript("window.terminalReset()", null)
+        Toast.makeText(this, R.string.reconnected, Toast.LENGTH_SHORT).show()
+    }
+
+    /**
+     * Asks (once per install) to skip battery optimizations: aggressive
+     * doze modes kill idle SSH links with the screen off even when a
+     * foreground service with wake locks is running.
+     */
+    private fun maybeAskBatteryOptimization() {
+        val prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
+        if (prefs.getBoolean("battery_opt_asked", false)) return
+        val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
+        if (pm.isIgnoringBatteryOptimizations(packageName)) return
+        prefs.edit().putBoolean("battery_opt_asked", true).apply()
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.battery_title)
+            .setMessage(R.string.battery_message)
+            .setPositiveButton(R.string.battery_btn_settings) { _, _ ->
+                try {
+                    startActivity(
+                        Intent(
+                            Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+                            Uri.parse("package:$packageName")
+                        )
+                    )
+                } catch (e: Exception) {
+                    // not supported on this device
+                }
+            }
+            .setNegativeButton(R.string.update_later, null)
+            .show()
+    }
+
+    /** Asks for notification access on Android 13+ (foreground service notice). */
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= 33 &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 2001
+            )
         }
     }
 
@@ -412,37 +553,27 @@ class TerminalActivity : ThemedActivity() {
         if (changed) runOnUiThread { refreshModifierVisuals() }
     }
 
-    /** Sends raw bytes to the SSH channel. */
+    /**
+     * Sends raw bytes to the SSH channel. The write runs off the UI thread:
+     * a stalled socket must never freeze the extra keys bar, and a dead
+     * link is reported through onLinkBroken (epoch-checked).
+     */
     private fun sendRaw(text: String) {
-        val o = out ?: return
+        if (userClosed) return
         try {
-            synchronized(o) {
-                o.write(text.toByteArray(Charsets.UTF_8))
-                o.flush()
+            writer.execute {
+                val o = out ?: return@execute
+                try {
+                    synchronized(o) {
+                        o.write(text.toByteArray(Charsets.UTF_8))
+                        o.flush()
+                    }
+                } catch (e: Exception) {
+                    onLinkBroken(linkEpoch.get(), e, -1)
+                }
             }
         } catch (e: Exception) {
-            // Broken pipe etc. - stop writing into a dead socket silently
-            onLinkBroken()
-        }
-    }
-
-    /** The TCP link is dead: stop the keep-alive service and show Reconnect. */
-    private fun onLinkBroken() {
-        if (running.getAndSet(false)) {
-            TerminalService.stop(this)
-            runOnUiThread { showError("", closed = true) }
-        }
-    }
-
-    /** Asks for notification access on Android 13+ (foreground service notice). */
-    private fun requestNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= 33 &&
-            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
-                != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 2001
-            )
+            // executor rejected the task (shutting down)
         }
     }
 
@@ -521,16 +652,7 @@ class TerminalActivity : ThemedActivity() {
     private fun pasteClipboard() {
         val cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val text = cm.primaryClip?.getItemAt(0)?.coerceToText(this)?.toString() ?: return
-        val o = out ?: return
-        thread {
-            try {
-                synchronized(o) {
-                    o.write(text.toByteArray(Charsets.UTF_8))
-                    o.flush()
-                }
-            } catch (e: Exception) {
-            }
-        }
+        sendRaw(text)
     }
 
     private fun changeFont(delta: Int) {
@@ -563,7 +685,10 @@ class TerminalActivity : ThemedActivity() {
     }
 
     override fun onDestroy() {
+        userClosed = true
+        linkEpoch.incrementAndGet()
         running.set(false)
+        writer.shutdownNow()
         TerminalService.stop(this)
         try { channel?.disconnect() } catch (e: Exception) {}
         try { sshSession?.disconnect() } catch (e: Exception) {}

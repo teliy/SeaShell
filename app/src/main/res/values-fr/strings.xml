@@ -114,4 +114,9 @@ Télécharger et installer maintenant ?</string>
     <string name="keepalive_notification_title">Session SSH active</string>
     <string name="keepalive_notification_text">SeaShell maintient la connexion, même écran éteint</string>
     <string name="link_lost">Connexion perdue. Touchez Réessayer pour vous reconnecter.</string>
+    <string name="reconnecting">Connexion perdue — reconnexion (%1$d sur %2$d)…</string>
+    <string name="reconnected">Reconnecté</string>
+    <string name="battery_title">Désactiver l\'optimisation de la batterie ?</string>
+    <string name="battery_message">Pour que la session SSH reste active écran éteint, autorisez SeaShell à fonctionner sans restrictions de batterie.</string>
+    <string name="battery_btn_settings">Autoriser</string>
 </resources>

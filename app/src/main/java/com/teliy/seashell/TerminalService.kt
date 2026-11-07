@@ -26,11 +26,17 @@ class TerminalService : Service() {
         private const val NOTIFICATION_ID = 1001
 
         fun start(context: Context) {
-            val intent = Intent(context, TerminalService::class.java)
-            if (Build.VERSION.SDK_INT >= 26) {
-                context.startForegroundService(intent)
-            } else {
-                context.startService(intent)
+            // The service usually already runs while auto-reconnect retries;
+            // on some Android versions a background start may be rejected -
+            // that must never crash the session.
+            try {
+                val intent = Intent(context, TerminalService::class.java)
+                if (Build.VERSION.SDK_INT >= 26) {
+                    context.startForegroundService(intent)
+                } else {
+                    context.startService(intent)
+                }
+            } catch (e: Exception) {
             }
         }
 

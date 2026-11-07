@@ -114,4 +114,9 @@ Software libre bajo la licencia GNU GPL v3.</string>
     <string name="keepalive_notification_title">Sesión SSH activa</string>
     <string name="keepalive_notification_text">SeaShell mantiene la conexión con la pantalla apagada</string>
     <string name="link_lost">Conexión perdida. Toca Reintentar para volver a conectarte.</string>
+    <string name="reconnecting">Conexión perdida — reconectando (%1$d de %2$d)…</string>
+    <string name="reconnected">Reconectado</string>
+    <string name="battery_title">¿Desactivar la optimización de batería?</string>
+    <string name="battery_message">Para que la sesión SSH no se pierda con la pantalla apagada, permita que SeaShell funcione sin restricciones de batería.</string>
+    <string name="battery_btn_settings">Permitir</string>
 </resources>

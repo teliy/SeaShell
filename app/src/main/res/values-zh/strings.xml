@@ -114,4 +114,9 @@
     <string name="keepalive_notification_title">SSH 会话进行中</string>
     <string name="keepalive_notification_text">屏幕关闭时 SeaShell 仍会保持连接</string>
     <string name="link_lost">连接已断开，请点击“重试”重新连接。</string>
+    <string name="reconnecting">连接已断开 — 正在重新连接（第 %1$d 次，共 %2$d 次）…</string>
+    <string name="reconnected">连接已恢复</string>
+    <string name="battery_title">关闭电池优化？</string>
+    <string name="battery_message">为了让 SSH 会话在息屏时保持连接，请允许 SeaShell 不受电池限制地运行。</string>
+    <string name="battery_btn_settings">允许</string>
 </resources>

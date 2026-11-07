@@ -114,4 +114,9 @@
     <string name="keepalive_notification_title">جلسة SSH نشطة</string>
     <string name="keepalive_notification_text">يحافظ SeaShell على الاتصال حتى عند إيقاف الشاشة</string>
     <string name="link_lost">انقطع الاتصال بالخادم. اضغط «إعادة المحاولة» لإعادة الاتصال.</string>
+    <string name="reconnecting">انقطع الاتصال — جارٍ إعادة الاتصال (%1$d من %2$d)…</string>
+    <string name="reconnected">تمت استعادة الاتصال</string>
+    <string name="battery_title">تعطيل تحسين البطارية؟</string>
+    <string name="battery_message">لكي لا يفقد SeaShell اتصال SSH عند إطفاء الشاشة، اسمح له بالعمل دون قيود البطارية.</string>
+    <string name="battery_btn_settings">السماح</string>
 </resources>
