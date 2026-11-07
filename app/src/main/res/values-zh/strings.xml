@@ -113,4 +113,5 @@
     <string name="key_right_desc">右方向键</string>
     <string name="keepalive_notification_title">SSH 会话进行中</string>
     <string name="keepalive_notification_text">屏幕关闭时 SeaShell 仍会保持连接</string>
+    <string name="link_lost">连接已断开，请点击“重试”重新连接。</string>
 </resources>

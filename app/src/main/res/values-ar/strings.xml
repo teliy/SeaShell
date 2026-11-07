@@ -113,4 +113,5 @@
     <string name="key_right_desc">سهم لليمين</string>
     <string name="keepalive_notification_title">جلسة SSH نشطة</string>
     <string name="keepalive_notification_text">يحافظ SeaShell على الاتصال حتى عند إيقاف الشاشة</string>
+    <string name="link_lost">انقطع الاتصال بالخادم. اضغط «إعادة المحاولة» لإعادة الاتصال.</string>
 </resources>

@@ -113,4 +113,5 @@ Télécharger et installer maintenant ?</string>
     <string name="key_right_desc">Flèche vers la droite</string>
     <string name="keepalive_notification_title">Session SSH active</string>
     <string name="keepalive_notification_text">SeaShell maintient la connexion, même écran éteint</string>
+    <string name="link_lost">Connexion perdue. Touchez Réessayer pour vous reconnecter.</string>
 </resources>

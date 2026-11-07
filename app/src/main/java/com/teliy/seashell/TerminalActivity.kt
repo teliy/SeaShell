@@ -52,6 +52,7 @@ class TerminalActivity : ThemedActivity() {
     private var channel: ChannelShell? = null
     private var out: OutputStream? = null
     private val running = AtomicBoolean(false)
+    private val connecting = AtomicBoolean(false)
     private var fontSize = 14
 
     // Sticky modifiers for the extra keys bar (also read from the JS bridge thread)
@@ -147,15 +148,29 @@ class TerminalActivity : ThemedActivity() {
     }
 
     private fun retry() {
+        // Tear the previous session down right away, so its asynchronous
+        // teardown can never touch the session that is about to be created
+        // (that cross-disconnect is what produced the JSch NPE crash screen).
+        running.set(false)
+        try { channel?.disconnect() } catch (e: Exception) {}
+        try { sshSession?.disconnect() } catch (e: Exception) {}
         binding.errorView.visibility = View.GONE
         binding.webView.reload()
         connect()
     }
 
     private fun connect() {
+        // One session at a time: a double-tap on "Retry" must not open two
+        // parallel SSH sessions racing each other's teardown.
+        if (!connecting.compareAndSet(false, true)) return
         showProgress(getString(R.string.term_connecting, session.address()))
         val appContext = applicationContext
         thread(name = "ssh-session") {
+            // Locals: the finally block must disconnect exactly the objects
+            // THIS thread created, never the shared fields (a retry may have
+            // already pointed them at the next session).
+            var s: Session? = null
+            var ch: ChannelShell? = null
             try {
                 val jsch = JSch()
 
@@ -174,7 +189,7 @@ class TerminalActivity : ThemedActivity() {
                     }
                 }
 
-                val s = jsch.getSession(session.username, session.host, session.port)
+                s = jsch.getSession(session.username, session.host, session.port)
                 sshSession = s
                 s.setUserInfo(ShellUserInfo(this@TerminalActivity))
                 s.setConfig("PreferredAuthentications", "publickey,password,keyboard-interactive")
@@ -214,7 +229,7 @@ class TerminalActivity : ThemedActivity() {
                     // non-fatal
                 }
 
-                val ch = s.openChannel("shell") as ChannelShell
+                ch = s.openChannel("shell") as ChannelShell
                 channel = ch
                 ch.setPty(true)
                 ch.setPtyType("xterm-256color")
@@ -266,8 +281,9 @@ class TerminalActivity : ThemedActivity() {
                     runOnUiThread { showError(msg, closed = false) }
                 }
             } finally {
-                try { channel?.disconnect() } catch (e: Exception) {}
-                try { sshSession?.disconnect() } catch (e: Exception) {}
+                try { ch?.disconnect() } catch (e: Exception) {}
+                try { s?.disconnect() } catch (e: Exception) {}
+                connecting.set(false)
             }
         }
     }
@@ -294,6 +310,11 @@ class TerminalActivity : ThemedActivity() {
     private fun friendlyError(e: Exception): String {
         val raw = e.message ?: e.javaClass.simpleName
         return when {
+            // JSch has an internal read/disconnect race that can surface as a
+            // raw NullPointerException - show a clean message instead of Java noise.
+            raw.contains("NullPointerException", ignoreCase = true) ||
+                raw.contains("null object reference", ignoreCase = true) ->
+                getString(R.string.link_lost)
             raw.contains("Auth cancel", ignoreCase = true) ->
                 getString(R.string.auth_cancelled)
             raw.contains("Auth fail", ignoreCase = true) ||

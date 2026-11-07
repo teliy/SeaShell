@@ -113,4 +113,5 @@ Software libre bajo la licencia GNU GPL v3.</string>
     <string name="key_right_desc">Flecha derecha</string>
     <string name="keepalive_notification_title">Sesión SSH activa</string>
     <string name="keepalive_notification_text">SeaShell mantiene la conexión con la pantalla apagada</string>
+    <string name="link_lost">Conexión perdida. Toca Reintentar para volver a conectarte.</string>
 </resources>

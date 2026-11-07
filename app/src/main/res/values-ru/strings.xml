@@ -113,4 +113,5 @@
     <string name="key_right_desc">Стрелка вправо</string>
     <string name="keepalive_notification_title">Активная SSH-сессия</string>
     <string name="keepalive_notification_text">SeaShell поддерживает соединение, даже когда экран выключен</string>
+    <string name="link_lost">Связь с сервером прервана. Нажмите «Повторить» для переподключения.</string>
 </resources>
