@@ -111,4 +111,6 @@
     <string name="key_up_desc">Стрелка вверх</string>
     <string name="key_down_desc">Стрелка вниз</string>
     <string name="key_right_desc">Стрелка вправо</string>
+    <string name="keepalive_notification_title">Активная SSH-сессия</string>
+    <string name="keepalive_notification_text">SeaShell поддерживает соединение, даже когда экран выключен</string>
 </resources>

@@ -111,4 +111,6 @@
     <string name="key_up_desc">上方向键</string>
     <string name="key_down_desc">下方向键</string>
     <string name="key_right_desc">右方向键</string>
+    <string name="keepalive_notification_title">SSH 会话进行中</string>
+    <string name="keepalive_notification_text">屏幕关闭时 SeaShell 仍会保持连接</string>
 </resources>

@@ -111,4 +111,6 @@ Free and open-source software under the GNU GPL v3 license.</string>
     <string name="key_up_desc">Arrow up</string>
     <string name="key_down_desc">Arrow down</string>
     <string name="key_right_desc">Arrow right</string>
+    <string name="keepalive_notification_title">Active SSH session</string>
+    <string name="keepalive_notification_text">SeaShell keeps the connection alive while the screen is off</string>
 </resources>

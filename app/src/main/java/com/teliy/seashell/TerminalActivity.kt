@@ -1,10 +1,13 @@
 package com.teliy.seashell
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.HapticFeedbackConstants
@@ -18,6 +21,8 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.jcraft.jsch.ChannelShell
 import com.jcraft.jsch.HostKeyRepository
 import com.jcraft.jsch.JSch
@@ -77,6 +82,7 @@ class TerminalActivity : ThemedActivity() {
         fontSize = session.fontSize
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        requestNotificationPermission()
 
         setSupportActionBar(binding.toolbar)
         binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
@@ -179,6 +185,8 @@ class TerminalActivity : ThemedActivity() {
                 }
                 // Empty stored password => JSch asks via UserInfo (prompt dialog).
                 s.setServerAliveInterval(30000)
+                // Tolerate a few lost probes instead of dropping the link after one
+                s.setServerAliveCountMax(6)
                 s.connect(CONNECT_TIMEOUT)
 
                 // Remember successful connection time (only for saved sessions)
@@ -214,7 +222,11 @@ class TerminalActivity : ThemedActivity() {
                 out = ch.outputStream
                 ch.connect()
 
-                runOnUiThread { hideProgress() }
+                runOnUiThread {
+                    hideProgress()
+                    // Keep the link alive with the screen off (wake locks)
+                    TerminalService.start(this@TerminalActivity)
+                }
                 running.set(true)
 
                 // Streaming UTF-8 decoder keeps state between chunks
@@ -241,11 +253,14 @@ class TerminalActivity : ThemedActivity() {
                     }
                 }
                 if (running.getAndSet(false)) {
+                    TerminalService.stop(this@TerminalActivity)
                     runOnUiThread { showError("", closed = true) }
                 }
             } catch (e: Exception) {
                 if (running.getAndSet(false)) {
-                    // was connected and stream died - ignore, already handled
+                    // was connected and the stream died - surface the broken link
+                    TerminalService.stop(this@TerminalActivity)
+                    runOnUiThread { showError("", closed = true) }
                 } else {
                     val msg = friendlyError(e)
                     runOnUiThread { showError(msg, closed = false) }
@@ -385,7 +400,28 @@ class TerminalActivity : ThemedActivity() {
                 o.flush()
             }
         } catch (e: Exception) {
-            // connection may be closing
+            // Broken pipe etc. - stop writing into a dead socket silently
+            onLinkBroken()
+        }
+    }
+
+    /** The TCP link is dead: stop the keep-alive service and show Reconnect. */
+    private fun onLinkBroken() {
+        if (running.getAndSet(false)) {
+            TerminalService.stop(this)
+            runOnUiThread { showError("", closed = true) }
+        }
+    }
+
+    /** Asks for notification access on Android 13+ (foreground service notice). */
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= 33 &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 2001
+            )
         }
     }
 
@@ -507,6 +543,7 @@ class TerminalActivity : ThemedActivity() {
 
     override fun onDestroy() {
         running.set(false)
+        TerminalService.stop(this)
         try { channel?.disconnect() } catch (e: Exception) {}
         try { sshSession?.disconnect() } catch (e: Exception) {}
         super.onDestroy()

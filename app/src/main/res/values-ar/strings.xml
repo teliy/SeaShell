@@ -111,4 +111,6 @@
     <string name="key_up_desc">سهم لأعلى</string>
     <string name="key_down_desc">سهم لأسفل</string>
     <string name="key_right_desc">سهم لليمين</string>
+    <string name="keepalive_notification_title">جلسة SSH نشطة</string>
+    <string name="keepalive_notification_text">يحافظ SeaShell على الاتصال حتى عند إيقاف الشاشة</string>
 </resources>
