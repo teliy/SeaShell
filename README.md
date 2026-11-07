@@ -23,12 +23,12 @@ Kotlin · minSdk 24 (Android 7.0) · JSch + xterm.js
 - 🛡 **Проверка ключей хостов** — диалог подтверждения отпечатка при первом подключении и запоминание ключа (known hosts)
 - 🎨 **6 тем оформления** — Океан, Графит, Закат, Лес, Аметист, Роза (светлые и тёмные варианты)
 - 🌍 **6 языков** — русский, English, français, 中文, العربية (RTL), español; переключение внутри приложения
-- ✍️ **Удобства терминала** — вставка из буфера обмена, изменение размера шрифта, экран не гаснет во время сессии
+- ✍️ **Удобства терминала** — панель доп. клавиш (ESC, TAB, CTRL, ALT, стрелки, HOME, END, PGUP, PGDN): Ctrl и Alt — с залипанием и блокировкой долгим нажатием, работают с любыми кнопками; вставка из буфера обмена, изменение размера шрифта, экран не гаснет во время сессии
 - 🤖 **Поддержка Android 7.0+** (API 24), адаптивная иконка и monochrome-слой для Android 13+
 
 ## Установка
 
-Скачайте готовый `SeaShell-1.2.0.apk` из раздела [Releases](https://github.com/teliy/SeaShell/releases) и установите его
+Скачайте готовый `SeaShell-1.3.0.apk` из раздела [Releases](https://github.com/teliy/SeaShell/releases) и установите его
 (при необходимости разрешите установку из неизвестных источников).
 
 Дальнейшие обновления можно ставить прямо из приложения: **Настройки → Проверить обновления**.
@@ -93,6 +93,7 @@ app/src/main/java/com/teliy/seashell/
 
 SeaShell is an open-source SSH client for Android 7.0+: saved server list, quick connect without saving,
 interactive xterm-256color terminal (xterm.js + JSch), password/key auth, host key verification,
+an extra keys bar (ESC, TAB, sticky/latchable Ctrl and Alt, arrows, HOME, END, PGUP, PGDN),
 6 color themes and 6 languages (ru/en/fr/zh/ar/es with RTL), font size control and clipboard paste.
 Licensed under the GNU GPL v3.
 

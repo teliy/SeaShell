@@ -104,4 +104,11 @@
     <string name="error_address_invalid">أدخل عنوانًا صحيحًا</string>
     <string name="save_connection_title">حفظ الاتصال؟</string>
     <string name="save_connection_msg">إضافة %1$s إلى قائمة الخوادم المحفوظة؟</string>
+    <string name="extra_keys_desc">مفاتيح إضافية للطرفية</string>
+    <string name="key_ctrl_desc">مفتاح تعديل Ctrl</string>
+    <string name="key_alt_desc">مفتاح تعديل Alt</string>
+    <string name="key_left_desc">سهم لليسار</string>
+    <string name="key_up_desc">سهم لأعلى</string>
+    <string name="key_down_desc">سهم لأسفل</string>
+    <string name="key_right_desc">سهم لليمين</string>
 </resources>

@@ -104,4 +104,11 @@ Software libre bajo la licencia GNU GPL v3.</string>
     <string name="error_address_invalid">Introduce una dirección válida</string>
     <string name="save_connection_title">¿Guardar la conexión?</string>
     <string name="save_connection_msg">¿Añadir %1$s a la lista de servidores guardados?</string>
+    <string name="extra_keys_desc">Teclas adicionales del terminal</string>
+    <string name="key_ctrl_desc">Tecla modificadora Ctrl</string>
+    <string name="key_alt_desc">Tecla modificadora Alt</string>
+    <string name="key_left_desc">Flecha izquierda</string>
+    <string name="key_up_desc">Flecha arriba</string>
+    <string name="key_down_desc">Flecha abajo</string>
+    <string name="key_right_desc">Flecha derecha</string>
 </resources>

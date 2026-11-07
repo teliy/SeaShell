@@ -104,4 +104,11 @@
     <string name="error_address_invalid">Укажите корректный адрес</string>
     <string name="save_connection_title">Сохранить подключение?</string>
     <string name="save_connection_msg">Добавить %1$s в список сохранённых серверов?</string>
+    <string name="extra_keys_desc">Дополнительные клавиши терминала</string>
+    <string name="key_ctrl_desc">Клавиша-модификатор Ctrl</string>
+    <string name="key_alt_desc">Клавиша-модификатор Alt</string>
+    <string name="key_left_desc">Стрелка влево</string>
+    <string name="key_up_desc">Стрелка вверх</string>
+    <string name="key_down_desc">Стрелка вниз</string>
+    <string name="key_right_desc">Стрелка вправо</string>
 </resources>

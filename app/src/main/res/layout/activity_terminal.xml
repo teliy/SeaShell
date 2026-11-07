@@ -16,7 +16,9 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
 
         <WebView
             android:id="@+id/webView"
@@ -90,4 +92,97 @@
                 android:text="@string/btn_close" />
         </LinearLayout>
     </FrameLayout>
+
+    <!-- Scrollable extra keys bar (rides above the soft keyboard thanks to adjustResize) -->
+    <HorizontalScrollView
+        android:id="@+id/extraKeysBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/termBackground"
+        android:contentDescription="@string/extra_keys_desc"
+        android:scrollbars="none"
+        android:requiresFadingEdge="horizontal"
+        android:fadingEdgeLength="24dp">
+
+        <LinearLayout
+            android:id="@+id/extraKeysRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="9dp">
+
+            <TextView
+                android:id="@+id/keyEsc"
+                style="@style/ExtraKey"
+                android:text="ESC" />
+
+            <TextView
+                android:id="@+id/keyTab"
+                style="@style/ExtraKey"
+                android:text="TAB" />
+
+            <TextView
+                android:id="@+id/keyCtrl"
+                style="@style/ExtraKey"
+                android:contentDescription="@string/key_ctrl_desc"
+                android:text="CTRL" />
+
+            <TextView
+                android:id="@+id/keyAlt"
+                style="@style/ExtraKey"
+                android:contentDescription="@string/key_alt_desc"
+                android:text="ALT" />
+
+            <View style="@style/ExtraKeyDivider" />
+
+            <TextView
+                android:id="@+id/keyLeft"
+                style="@style/ExtraKey.Arrow"
+                android:contentDescription="@string/key_left_desc"
+                android:text="←" />
+
+            <TextView
+                android:id="@+id/keyUp"
+                style="@style/ExtraKey.Arrow"
+                android:contentDescription="@string/key_up_desc"
+                android:text="↑" />
+
+            <TextView
+                android:id="@+id/keyDown"
+                style="@style/ExtraKey.Arrow"
+                android:contentDescription="@string/key_down_desc"
+                android:text="↓" />
+
+            <TextView
+                android:id="@+id/keyRight"
+                style="@style/ExtraKey.Arrow"
+                android:contentDescription="@string/key_right_desc"
+                android:text="→" />
+
+            <View style="@style/ExtraKeyDivider" />
+
+            <TextView
+                android:id="@+id/keyHome"
+                style="@style/ExtraKey"
+                android:text="HOME" />
+
+            <TextView
+                android:id="@+id/keyEnd"
+                style="@style/ExtraKey"
+                android:text="END" />
+
+            <TextView
+                android:id="@+id/keyPgUp"
+                style="@style/ExtraKey"
+                android:text="PGUP" />
+
+            <TextView
+                android:id="@+id/keyPgDn"
+                style="@style/ExtraKey"
+                android:text="PGDN" />
+        </LinearLayout>
+    </HorizontalScrollView>
 </LinearLayout>

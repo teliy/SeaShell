@@ -104,4 +104,11 @@ Télécharger et installer maintenant ?</string>
     <string name="error_address_invalid">Saisissez une adresse valide</string>
     <string name="save_connection_title">Enregistrer la connexion ?</string>
     <string name="save_connection_msg">Ajouter %1$s à la liste des serveurs enregistrés ?</string>
+    <string name="extra_keys_desc">Touches supplémentaires du terminal</string>
+    <string name="key_ctrl_desc">Touche modificatrice Ctrl</string>
+    <string name="key_alt_desc">Touche modificatrice Alt</string>
+    <string name="key_left_desc">Flèche vers la gauche</string>
+    <string name="key_up_desc">Flèche vers le haut</string>
+    <string name="key_down_desc">Flèche vers le bas</string>
+    <string name="key_right_desc">Flèche vers la droite</string>
 </resources>

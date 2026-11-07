@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.TypedValue
+import android.view.HapticFeedbackConstants
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -48,6 +49,12 @@ class TerminalActivity : ThemedActivity() {
     private val running = AtomicBoolean(false)
     private var fontSize = 14
 
+    // Sticky modifiers for the extra keys bar (also read from the JS bridge thread)
+    @Volatile private var ctrlArmed = false
+    @Volatile private var ctrlLocked = false
+    @Volatile private var altArmed = false
+    @Volatile private var altLocked = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTerminalBinding.inflate(layoutInflater)
@@ -82,6 +89,7 @@ class TerminalActivity : ThemedActivity() {
         binding.btnClose.setOnClickListener { finish() }
 
         setupWebView()
+        setupExtraKeys()
         connect()
     }
 
@@ -293,6 +301,138 @@ class TerminalActivity : ThemedActivity() {
     private fun CodingErrorAction_REPLACE(): java.nio.charset.CodingErrorAction =
         java.nio.charset.CodingErrorAction.REPLACE
 
+    // region Extra keys bar
+
+    private fun ctrlActive() = ctrlArmed || ctrlLocked
+    private fun altActive() = altArmed || altLocked
+
+    /** Wires all keys of the extra keys bar. */
+    private fun setupExtraKeys() {
+        bindModifier(binding.keyCtrl, ctrl = true)
+        bindModifier(binding.keyAlt, ctrl = false)
+
+        binding.keyEsc.setOnClickListener { v -> tapKey(v) { sendRaw("\u001B") } }
+        binding.keyTab.setOnClickListener { v -> tapKey(v) { sendRaw("\t") } }
+        binding.keyHome.setOnClickListener { v -> tapKey(v) { sendRaw("\u001B[H") } }
+        binding.keyEnd.setOnClickListener { v -> tapKey(v) { sendRaw("\u001B[F") } }
+        binding.keyPgUp.setOnClickListener { v -> tapKey(v) { sendRaw("\u001B[5~") } }
+        binding.keyPgDn.setOnClickListener { v -> tapKey(v) { sendRaw("\u001B[6~") } }
+
+        binding.keyLeft.setOnClickListener { v -> tapKey(v) { sendArrow('D') } }
+        binding.keyUp.setOnClickListener { v -> tapKey(v) { sendArrow('A') } }
+        binding.keyDown.setOnClickListener { v -> tapKey(v) { sendArrow('B') } }
+        binding.keyRight.setOnClickListener { v -> tapKey(v) { sendArrow('C') } }
+    }
+
+    /** Haptic feedback + action for a plain key tap. */
+    private inline fun tapKey(v: View, action: () -> Unit) {
+        v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        action()
+    }
+
+    /** Ctrl / Alt are one-shot on tap and latch (lock) on long-press. */
+    private fun bindModifier(view: View, ctrl: Boolean) {
+        view.setOnClickListener {
+            it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (ctrl) {
+                when {
+                    ctrlLocked -> { ctrlLocked = false; ctrlArmed = false }
+                    ctrlArmed -> ctrlArmed = false
+                    else -> ctrlArmed = true
+                }
+            } else {
+                when {
+                    altLocked -> { altLocked = false; altArmed = false }
+                    altArmed -> altArmed = false
+                    else -> altArmed = true
+                }
+            }
+            refreshModifierVisuals()
+        }
+        view.setOnLongClickListener {
+            it.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+            if (ctrl) {
+                ctrlLocked = true; ctrlArmed = true
+            } else {
+                altLocked = true; altArmed = true
+            }
+            refreshModifierVisuals()
+            true
+        }
+    }
+
+    private fun refreshModifierVisuals() {
+        binding.keyCtrl.isSelected = ctrlActive()
+        binding.keyAlt.isSelected = altActive()
+        binding.keyCtrl.text = if (ctrlLocked) "CTRL •" else "CTRL"
+        binding.keyAlt.text = if (altLocked) "ALT •" else "ALT"
+    }
+
+    /** One-shot modifiers release after the next key press. */
+    private fun consumeOneShot() {
+        var changed = false
+        if (ctrlArmed && !ctrlLocked) { ctrlArmed = false; changed = true }
+        if (altArmed && !altLocked) { altArmed = false; changed = true }
+        if (changed) runOnUiThread { refreshModifierVisuals() }
+    }
+
+    /** Sends raw bytes to the SSH channel. */
+    private fun sendRaw(text: String) {
+        val o = out ?: return
+        try {
+            synchronized(o) {
+                o.write(text.toByteArray(Charsets.UTF_8))
+                o.flush()
+            }
+        } catch (e: Exception) {
+            // connection may be closing
+        }
+    }
+
+    /** Arrow keys, honoring armed Ctrl/Alt (xterm modifiers 5=Ctrl, 3=Alt). */
+    private fun sendArrow(code: Char) {
+        val seq = when {
+            ctrlActive() -> "\u001B[1;5$code"
+            altActive() -> "\u001B[1;3$code"
+            else -> "\u001B[$code"
+        }
+        sendRaw(seq)
+        consumeOneShot()
+    }
+
+    /**
+     * Applies armed modifiers to a single character typed on the soft
+     * keyboard: Ctrl maps letters to control codes, Alt prefixes ESC (Meta).
+     */
+    private fun transformInput(data: String): String {
+        if (data.length != 1) return data
+        val c = data[0]
+        val ctrl = ctrlActive()
+        val alt = altActive()
+        if (!ctrl && !alt) return data
+
+        var result = data
+        if (ctrl) {
+            result = when {
+                c in 'a'..'z' -> (c.code - 96).toChar().toString()
+                c in 'A'..'Z' -> (c.code - 64).toChar().toString()
+                c == ' ' || c == '@' -> "\u0000"
+                c == '[' -> "\u001B"
+                c == '\\' -> "\u001C"
+                c == ']' -> "\u001D"
+                c == '^' -> "\u001E"
+                c == '_' -> "\u001F"
+                c == '?' -> "\u007F"
+                else -> data
+            }
+        }
+        if (alt) result = "\u001B$result"
+        consumeOneShot()
+        return result
+    }
+
+    // endregion
+
     private inner class Bridge {
         @JavascriptInterface
         fun getConfig(): String {
@@ -307,15 +447,8 @@ class TerminalActivity : ThemedActivity() {
 
         @JavascriptInterface
         fun onData(data: String) {
-            val o = out ?: return
-            try {
-                synchronized(o) {
-                    o.write(data.toByteArray(Charsets.UTF_8))
-                    o.flush()
-                }
-            } catch (e: Exception) {
-                // connection may be closing
-            }
+            val payload = transformInput(data)
+            sendRaw(payload)
         }
 
         @JavascriptInterface

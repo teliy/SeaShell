@@ -104,4 +104,11 @@ Free and open-source software under the GNU GPL v3 license.</string>
     <string name="error_address_invalid">Enter a valid address</string>
     <string name="save_connection_title">Save connection?</string>
     <string name="save_connection_msg">Add %1$s to the saved server list?</string>
+    <string name="extra_keys_desc">Additional terminal keys</string>
+    <string name="key_ctrl_desc">Ctrl modifier</string>
+    <string name="key_alt_desc">Alt modifier</string>
+    <string name="key_left_desc">Arrow left</string>
+    <string name="key_up_desc">Arrow up</string>
+    <string name="key_down_desc">Arrow down</string>
+    <string name="key_right_desc">Arrow right</string>
 </resources>

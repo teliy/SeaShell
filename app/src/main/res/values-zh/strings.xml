@@ -104,4 +104,11 @@
     <string name="error_address_invalid">请输入有效的地址</string>
     <string name="save_connection_title">保存连接？</string>
     <string name="save_connection_msg">将 %1$s 添加到已保存的服务器列表？</string>
+    <string name="extra_keys_desc">终端附加按键</string>
+    <string name="key_ctrl_desc">Ctrl 修饰键</string>
+    <string name="key_alt_desc">Alt 修饰键</string>
+    <string name="key_left_desc">左方向键</string>
+    <string name="key_up_desc">上方向键</string>
+    <string name="key_down_desc">下方向键</string>
+    <string name="key_right_desc">右方向键</string>
 </resources>

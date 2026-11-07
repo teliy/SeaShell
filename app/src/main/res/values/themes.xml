@@ -78,4 +78,44 @@
         <item name="termBackground">#190F14</item>
     </style>
 
+    <!-- Extra keys bar (terminal): pill-shaped key -->
+    <style name="ExtraKey">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minWidth">44dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_extra_key</item>
+        <item name="android:textColor">@color/text_extra_key</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.06</item>
+        <item name="android:paddingStart">13dp</item>
+        <item name="android:paddingEnd">13dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:layout_marginEnd">6dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:importantForAccessibility">yes</item>
+    </style>
+
+    <!-- Extra keys bar: arrow key (glyph only, slightly larger) -->
+    <style name="ExtraKey.Arrow">
+        <item name="android:minWidth">40dp</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+    </style>
+
+    <!-- Extra keys bar: thin separator between key groups -->
+    <style name="ExtraKeyDivider">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">22dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">#24FFFFFF</item>
+    </style>
+
 </resources>
