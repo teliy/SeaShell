@@ -31,7 +31,7 @@ Kotlin · minSdk 24 (Android 7.0) · JSch + xterm.js
 
 ## Установка
 
-Скачайте готовый `SeaShell-1.6.0.apk` из раздела [Releases](https://github.com/teliy/SeaShell/releases) и установите его
+Скачайте готовый `SeaShell-1.6.1.apk` из раздела [Releases](https://github.com/teliy/SeaShell/releases) и установите его
 (при необходимости разрешите установку из неизвестных источников).
 
 Дальнейшие обновления можно ставить прямо из приложения: **Настройки → Проверить обновления**.

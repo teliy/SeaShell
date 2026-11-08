@@ -44,6 +44,7 @@
     <string name="term_connecting">正在连接 %1$s…</string>
     <string name="term_error">连接错误：%1$s</string>
     <string name="term_closed">连接已关闭</string>
+    <string name="term_diag">原因：%1$s</string>
     <string name="btn_retry">重试</string>
     <string name="btn_close">关闭</string>
     <string name="disconnect_title">断开连接</string>

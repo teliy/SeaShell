@@ -44,6 +44,7 @@
     <string name="term_connecting">Connecting to %1$s…</string>
     <string name="term_error">Connection error: %1$s</string>
     <string name="term_closed">Connection closed</string>
+    <string name="term_diag">Reason: %1$s</string>
     <string name="btn_retry">Retry</string>
     <string name="btn_close">Close</string>
     <string name="disconnect_title">Disconnect</string>

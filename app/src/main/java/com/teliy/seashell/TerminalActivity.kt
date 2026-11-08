@@ -63,6 +63,17 @@ class TerminalActivity : ThemedActivity() {
     private val connecting = AtomicBoolean(false)
 
     /**
+     * True only while a fully established shell channel accepts input.
+     * Every input path (extra keys bar, soft keyboard via the JS bridge,
+     * window-change requests) is gated on it: a half-open or dead link
+     * must never receive protocol traffic.
+     */
+    @Volatile private var linkReady = false
+
+    /** Compact technical reason of the last link drop, shown on the error screen. */
+    @Volatile private var lastDiag: String? = null
+
+    /**
      * Every connection attempt owns an epoch. Callbacks (read thread, JSch
      * streams, bridge) report the epoch they belong to; a stale report is
      * dropped. Without this, a torn-down session waking up late could kill
@@ -167,6 +178,31 @@ class TerminalActivity : ThemedActivity() {
         binding.errorView.visibility = View.VISIBLE
         binding.textError.text =
             if (closed) getString(R.string.term_closed) else getString(R.string.term_error, message)
+        val diag = lastDiag
+        binding.textDiag.text = diag
+        binding.textDiag.visibility = if (diag != null) View.VISIBLE else View.GONE
+    }
+
+    /**
+     * Compact version-tagged reason for the drop (EOF / write failure /
+     * protocol exception). Shown in small print under the error message, so
+     * a user screenshot pinpoints both the app build and the failure class.
+     */
+    private fun diagReason(cause: Exception?, exitCode: Int): String {
+        val v = try {
+            packageManager.getPackageInfo(packageName, 0).versionName ?: "?"
+        } catch (e: Exception) {
+            "?"
+        }
+        return when {
+            exitCode >= 0 -> "v$v: shell exited with code $exitCode"
+            cause != null -> {
+                val msg = (cause.message ?: cause.javaClass.simpleName)
+                    .lineSequence().firstOrNull()?.take(140) ?: cause.javaClass.simpleName
+                "v$v: ${cause.javaClass.simpleName}: $msg"
+            }
+            else -> "v$v: EOF - server closed the link"
+        }
     }
 
     private fun retry() {
@@ -175,6 +211,8 @@ class TerminalActivity : ThemedActivity() {
         linkEpoch.incrementAndGet()
         userClosed = false
         running.set(false)
+        linkReady = false
+        lastDiag = null
         try { channel?.disconnect() } catch (e: Exception) {}
         try { sshSession?.disconnect() } catch (e: Exception) {}
         binding.errorView.visibility = View.GONE
@@ -187,6 +225,8 @@ class TerminalActivity : ThemedActivity() {
         // parallel SSH sessions racing each other's teardown.
         if (!connecting.compareAndSet(false, true)) return
         val myEpoch = linkEpoch.incrementAndGet()
+        linkReady = false
+        lastDiag = null
         showProgress(getString(R.string.term_connecting, session.address()))
         val appContext = applicationContext
         thread(name = "ssh-session") {
@@ -262,8 +302,12 @@ class TerminalActivity : ThemedActivity() {
                 out = ch.outputStream
                 ch.connect()
 
+                // A retry may have superseded this attempt while it was in
+                // flight - never revive a stale session (it would race the
+                // fresh one with teardown writes and late epoch reports).
+                if (linkEpoch.get() != myEpoch) return@thread
+
                 runOnUiThread {
-                    if (linkEpoch.get() != myEpoch) return@runOnUiThread
                     hideProgress()
                     // Keep the link alive with the screen off (wake locks)
                     TerminalService.start(this@TerminalActivity)
@@ -275,6 +319,8 @@ class TerminalActivity : ThemedActivity() {
                 }
                 running.set(true)
                 everConnected.set(true)
+                lastDiag = null
+                linkReady = true
 
                 // Streaming UTF-8 decoder keeps state between chunks
                 val dec = Charsets.UTF_8.newDecoder()
@@ -320,6 +366,8 @@ class TerminalActivity : ThemedActivity() {
      */
     private fun onLinkBroken(myEpoch: Long, cause: Exception?, exitCode: Int) {
         if (linkEpoch.get() != myEpoch) return
+        linkReady = false
+        lastDiag = diagReason(cause, exitCode)
         val wasUp = running.getAndSet(false)
         if (!wasUp) {
             if (everConnected.get()) return // another thread already handles the drop
@@ -559,7 +607,7 @@ class TerminalActivity : ThemedActivity() {
      * link is reported through onLinkBroken (epoch-checked).
      */
     private fun sendRaw(text: String) {
-        if (userClosed) return
+        if (userClosed || !linkReady) return
         try {
             writer.execute {
                 val o = out ?: return@execute
@@ -635,16 +683,23 @@ class TerminalActivity : ThemedActivity() {
 
         @JavascriptInterface
         fun onData(data: String) {
+            // A dead link swallows input; one-shot modifiers must not burn on it.
+            if (!linkReady) return
             val payload = transformInput(data)
             sendRaw(payload)
         }
 
         @JavascriptInterface
         fun onResize(cols: Int, rows: Int) {
-            try {
-                channel?.setPtySize(cols, rows, 0, 0)
-            } catch (e: Exception) {
-                // channel may not be ready yet
+            // Window-change packets go through the same serialized writer as
+            // keystrokes: a single thread performs every write on the session.
+            if (!linkReady) return
+            val ch = channel ?: return
+            writer.execute {
+                try {
+                    ch.setPtySize(cols, rows, 0, 0)
+                } catch (e: Exception) {
+                }
             }
         }
     }
@@ -688,6 +743,8 @@ class TerminalActivity : ThemedActivity() {
         userClosed = true
         linkEpoch.incrementAndGet()
         running.set(false)
+        linkReady = false
+        lastDiag = null
         writer.shutdownNow()
         TerminalService.stop(this)
         try { channel?.disconnect() } catch (e: Exception) {}

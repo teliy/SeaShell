@@ -44,6 +44,7 @@
     <string name="term_connecting">جارٍ الاتصال بـ %1$s…</string>
     <string name="term_error">خطأ في الاتصال: %1$s</string>
     <string name="term_closed">تم إغلاق الاتصال</string>
+    <string name="term_diag">السبب: %1$s</string>
     <string name="btn_retry">إعادة المحاولة</string>
     <string name="btn_close">إغلاق</string>
     <string name="disconnect_title">قطع الاتصال</string>

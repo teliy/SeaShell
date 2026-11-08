@@ -44,6 +44,7 @@
     <string name="term_connecting">Подключение к %1$s…</string>
     <string name="term_error">Ошибка подключения: %1$s</string>
     <string name="term_closed">Соединение закрыто</string>
+    <string name="term_diag">Причина: %1$s</string>
     <string name="btn_retry">Повторить</string>
     <string name="btn_close">Закрыть</string>
     <string name="disconnect_title">Отключение</string>
